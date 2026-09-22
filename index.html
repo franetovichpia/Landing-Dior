@@ -14,11 +14,10 @@
 
 <body>
 <!--
-ARCHIVO ÚNICO: HTML + CSS + JS + fotografías incrustadas.
 Edición basada en landing-dior.vercel.app y la devolución suministrada.
 PENDIENTES EDITORIALES: confirmar grafía Fortunati/Fortunatti; selección definitiva
 de cuatro obras y textos de sus enfoques; reemplazar fotografías con originales de Drive.
-CONTACTO: configurar CONTACTO al principio del script. Sin datos, prepara una consulta
+CONTACTO: configurar CONTACTO al principio de js/script.js. Sin datos, prepara una consulta
 copiable y nunca simula un envío. No requiere instalar dependencias.
 -->
 <a class="skip" href="#inicio">Ir al contenido</a><div class="paper" aria-hidden="true"></div>
@@ -29,6 +28,7 @@ copiable y nunca simula un envío. No requiere instalar dependencias.
 <main>
 <section class="hero" id="inicio" aria-label="Diorella Fortunati, arquitectura y paisaje">
 <div class="hero-art" aria-hidden="true"><img src="assets/images/hero-slide-01-edificio-ocampo.webp" alt="" decoding="async" class="hero-slide active" fetchpriority="high"><img src="assets/images/hero-slide-02-casa-sur.webp" alt="" decoding="async" class="hero-slide " loading="lazy"><img src="assets/images/hero-slide-03-casa-laguna.webp" alt="" decoding="async" class="hero-slide " loading="lazy"></div>
+<canvas id="heroCanvas" class="hero-canvas" aria-hidden="true"></canvas>
 <div class="hero-monogram" aria-hidden="true">D.F.</div>
 <div class="hero-folio" aria-hidden="true">Una mirada sobre el habitar</div>
 <div class="hero-content wrap"><span class="hero-kicker eyebrow">Arquitectura · Paisaje</span>
@@ -88,6 +88,7 @@ copiable y nunca simula un envío. No requiere instalar dependencias.
 <dialog id="projectDialog" aria-labelledby="projectTitle"><button class="dialog-close" type="button">Cerrar <svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button><div class="project-detail-layout"><div class="project-detail-image"><img id="projectImage" alt=""></div><div class="dialog-caption"><span class="eyebrow">Estudio Morton · Obra seleccionada</span><h2 id="projectTitle"></h2><p id="projectFacts"></p><p id="projectQuestion"></p><div class="detail-block"><h3>Qué se realizó</h3><p id="projectScope"></p></div><div class="detail-block"><h3>Qué se destaca</h3><ul id="projectHighlights"></ul></div><p id="projectCredits"></p><a id="projectSource" class="detail-source" target="_blank" rel="noopener">Ver ficha completa en Estudio Morton</a><a class="text-link" id="projectInquiry" href="#contacto">Quiero conversar sobre mi proyecto<svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a></div></div></dialog>
 <dialog id="inquiryDialog" aria-labelledby="inquiryTitle"><button class="dialog-close" type="button">Cerrar <svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button><div class="inquiry-content"><span class="eyebrow">Tu proyecto</span><h2 id="inquiryTitle">El primer paso.</h2><p id="inquiryExplanation">Tu consulta está preparada. Todavía no se envió ningún mensaje.</p><label for="inquiryText">Resumen de tu consulta</label><textarea id="inquiryText" readonly></textarea><a class="submit" id="sendInquiry" hidden target="_blank" rel="noopener">Continuar para enviar <svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a><button id="copyInquiry" class="submit" type="button">Copiar consulta <span aria-hidden="true"><svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></button><p id="copyStatus" role="status"></p></div></dialog>
 
+<script type="module" src="js/hero-canvas.js"></script>
 <script src="js/script.js" defer></script>
 </body>
 </html>
