@@ -6,6 +6,10 @@
 // Las imágenes actuales están incrustadas en los atributos src del HTML.
 // Podés sustituir cada src por la URL de la fotografía original de alta calidad.
 const CONTACTO = { whatsapp: '5491121542210', email: '' };
+// Access Key de Web3Forms (web3forms.com): las consultas del formulario llegan
+// automáticamente al mail configurado ahí. Para cambiar el mail de destino,
+// generar una nueva key en Web3Forms y reemplazarla acá.
+const WEB3FORMS_ACCESS_KEY = 'a08fd24a-46f7-4738-874c-51c2223ad75b';
 const $ = s => document.querySelector(s);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 const header = $('#header'), menu = $('.menu'), navigation = $('#navigation');
@@ -147,10 +151,11 @@ document.querySelectorAll('[data-wa]').forEach(link=>{
 });
 
 const connected=!!(whatsapp||email);
-if(connected){$('#submitLabel').textContent='Preparar mi mensaje';$('#contactNote').textContent=whatsapp?'Revisá tu mensaje y continuá a WhatsApp para enviarlo.':'Revisá tu mensaje y abrí tu aplicación de correo para enviarlo.';}
-$('#contactForm').addEventListener('submit',e=>{
+$('#submitLabel').textContent='Enviar consulta';$('#contactNote').textContent='Tu consulta se envía directamente por mail.'+(connected?whatsapp?' También podés continuar por WhatsApp.':' También podés continuar por correo.':'');
+$('#contactForm').addEventListener('submit',async e=>{
  e.preventDefault();
- const f=new FormData(e.currentTarget);
+ const form=e.currentTarget;
+ const f=new FormData(form);
  const text=['Hola, Diorella. Me gustaría conversar sobre mi proyecto.','',
  'Nombre: '+f.get('nombre'),'Email: '+f.get('email'),'Teléfono: '+(f.get('telefono')||'No indicado'),
  'Proyecto: '+f.get('tipo'),'Ubicación: '+(f.get('ubicacion')||'A definir'),'',f.get('mensaje')].join('\n');
@@ -159,9 +164,36 @@ $('#contactForm').addEventListener('submit',e=>{
  if(connected){
   send.href=whatsapp?'https://wa.me/'+whatsapp+'?text='+encodeURIComponent(text):'mailto:'+email+'?subject='+encodeURIComponent('Consulta de arquitectura · '+f.get('tipo'))+'&body='+encodeURIComponent(text);
   send.textContent=whatsapp?'Continuar en WhatsApp':'Abrir mi correo';
-  $('#inquiryExplanation').textContent='Revisá tu consulta. El envío se completa desde '+(whatsapp?'WhatsApp.':'tu aplicación de correo.');
- }else{$('#inquiryExplanation').textContent='Tu consulta está preparada. Esta vista previa todavía no tiene un contacto conectado: podés copiarla, pero no se envió ningún mensaje.';}
+ }
+ const submitBtn=form.querySelector('button[type=submit]');
+ if(submitBtn)submitBtn.disabled=true;
+ $('#inquiryExplanation').textContent='Enviando tu consulta…';
  $('#inquiryDialog').showModal();
+ try{
+  const res=await fetch('https://api.web3forms.com/submit',{
+   method:'POST',
+   headers:{'Content-Type':'application/json',Accept:'application/json'},
+   body:JSON.stringify({
+    access_key:WEB3FORMS_ACCESS_KEY,
+    subject:'Consulta de arquitectura · '+f.get('tipo'),
+    from_name:f.get('nombre'),
+    email:f.get('email'),
+    Nombre:f.get('nombre'),
+    Teléfono:f.get('telefono')||'No indicado',
+    'Tipo de proyecto':f.get('tipo'),
+    Ubicación:f.get('ubicacion')||'A definir',
+    Mensaje:f.get('mensaje')
+   })
+  });
+  const data=await res.json();
+  if(!data.success)throw new Error(data.message||'Error al enviar');
+  $('#inquiryExplanation').textContent='Tu consulta ya fue enviada. Te van a responder a la brevedad.'+(connected?' También podés continuar '+(whatsapp?'por WhatsApp.':'por correo.'):'');
+  form.reset();
+ }catch(err){
+  $('#inquiryExplanation').textContent='No pudimos enviar tu consulta automáticamente. Podés copiarla'+(connected?' o continuar '+(whatsapp?'por WhatsApp.':'por correo.'):'.');
+ }finally{
+  if(submitBtn)submitBtn.disabled=false;
+ }
 });
 $('#copyInquiry').addEventListener('click',async()=>{
  try{await navigator.clipboard.writeText($('#inquiryText').value);$('#copyStatus').textContent='Consulta copiada.';}
