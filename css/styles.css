@@ -282,3 +282,67 @@ footer{padding-bottom:45px}
 .audience-whatsapp{background:var(--lilac);color:var(--green);border-color:var(--lilac);box-shadow:none}
 .audience-whatsapp:hover{background:var(--paper);border-color:var(--paper);color:var(--green);box-shadow:0 5px 18px #0002}
 .audience-whatsapp:focus-visible{outline:2px solid var(--paper);outline-offset:4px}
+
+/* ===== CAMBIOS OCTUBRE 2026 (devolución Diorella) ===== */
+/* Logo "Dior" en cursiva + nombre y bajada en el encabezado */
+.mark{font-style:italic;font-weight:500;letter-spacing:-.01em;padding-right:12px}
+.brand-text{display:flex;flex-direction:column;line-height:1.15}
+.brand-tag{font:500 .58rem/1.5 'Manrope',sans-serif;letter-spacing:.14em;text-transform:uppercase;opacity:.85;margin-top:3px}
+.hero-monogram{font-style:italic;letter-spacing:-.04em;font-size:clamp(130px,21vw,320px);right:4%}
+/* Nombre del hero más chico */
+.hero h1{font-size:clamp(3.8rem,7vw,6.8rem);line-height:.96}
+.hero h1 span{margin-left:8vw}
+/* 01 Mi mirada: fondo de hormigón de tablas (generado por CSS; se puede cambiar por una foto) */
+.intro{background-color:#cdcac2;background-image:repeating-linear-gradient(180deg,transparent 0 94px,#5d594f38 94px 95px,#ffffff40 95px 96px),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='380'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.006 .55' numOctaves='4' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .28 0 0 0 0 .27 0 0 0 0 .24 0 0 0 .55 -.08'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)'/%3E%3C/svg%3E");background-size:auto,900px 380px}
+.intro:before{display:none}
+.portrait-frame figcaption{letter-spacing:.04em;text-transform:none;line-height:1.5}
+.portrait-frame figcaption strong{display:block;font:500 1.45rem/1.2 'Cormorant Garamond',serif;letter-spacing:0}
+.portrait-frame figcaption span{display:block;font-size:.74rem;margin-top:5px}
+.intro-side>p:last-child{margin-bottom:0}
+/* 02 Tu proyecto: un solo bloque */
+.listen h2 small{display:block;font:500 .78rem/1.6 'Manrope',sans-serif;letter-spacing:.19em;text-transform:uppercase;margin-bottom:12px}
+.listen-heading{grid-template-columns:1fr}
+.listen h2{max-width:900px}
+/* 03 Obras: botón Revista Living */
+.living-link{display:inline-flex;align-items:center;gap:12px;border:1px solid var(--green);border-radius:30px;padding:12px 22px;font-size:.82rem;transition:background .3s,color .3s}
+.living-link:hover{background:var(--green);color:var(--paper)}
+.living-link .line-icon{width:16px;height:16px}
+.living-link[hidden]{display:none}
+/* 04 Cómo trabajo: foto bajo el título */
+.process-photo{margin:28px 0 0;max-width:460px;aspect-ratio:4/3;overflow:hidden;background:#d6d2c5}
+.process-photo img{display:block;width:100%;height:100%;object-fit:cover}
+.step h3{text-transform:uppercase;letter-spacing:.1em;font-size:.86rem}
+.step p+p{margin-top:10px}
+/* 05 Trayectoria: iconos sobre cada dato */
+.stat-icon{width:34px;height:34px;margin-bottom:12px;color:#33203a}
+.recognition-heading .eyebrow{max-width:520px}
+/* 06 Formulario */
+.field-hint{display:block;font-size:.72rem;color:#abb8a8;margin-top:6px}
+.choice-group{border:0;padding:0;margin:0;min-width:0;display:flex;flex-wrap:wrap;gap:12px 28px}
+.choice-group legend{font-size:.875rem;color:#d2d8ca;margin-bottom:12px;padding:0;width:100%}
+.choice{display:flex;align-items:flex-start;gap:10px;font-size:.92rem;line-height:1.6;color:var(--white);cursor:pointer}
+.choice input{width:18px;height:18px;margin:3px 0 0;flex:none;accent-color:var(--lilac)}
+.choice-check{font-size:.85rem;color:#dde0d4;border-top:1px solid #ffffff30;padding-top:20px}
+@media(max-width:800px){
+.hero h1{font-size:clamp(3rem,10vw,4.6rem)}
+.hero h1 span{margin-left:0}
+.hero-monogram{font-size:150px;right:6%}
+.process-photo{max-width:100%}
+}
+@media(max-width:620px){
+/* Obras una encima de otra en el celular */
+.project-grid{grid-auto-flow:row;grid-auto-columns:auto;grid-template-columns:1fr;overflow:visible;scroll-snap-type:none;gap:36px;padding:0}
+.gallery-buttons{display:none}
+.works-footer>*{display:flex;margin-top:14px}
+.living-link{justify-content:space-between;border-radius:14px}
+}
+@media(max-width:540px){
+.hero h1{font-size:clamp(2.6rem,10vw,3.8rem)}
+.mark{font-size:1.7rem;padding-right:9px}
+.brand{gap:9px}
+.brand-tag{font-size:.5rem;letter-spacing:.08em}
+.stat-icon{width:28px;height:28px}
+}
+
+/* Contador "+15 años" */
+.profile-count[data-prefix]::before{content:attr(data-prefix)}
