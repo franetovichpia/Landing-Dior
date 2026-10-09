@@ -255,3 +255,49 @@ $('#copyInquiry').addEventListener('click',async()=>{
  $('#contactForm').addEventListener('reset',()=>setTimeout(revisar));
  revisar();
 })();
+
+
+// ===== GALERÍA EN LA FICHA DE CADA OBRA =====
+// Una lista por obra, en el mismo orden que las tarjetas. La primera foto es la que abre la ficha.
+// Para agregar o quitar fotos, editá estas listas (el sitio no puede leer las carpetas solo).
+const GALERIAS = [
+ ['ocampo-edificio/frente.jpg','ocampo-edificio/esquina.jpg','ocampo-edificio/lateral.jpg','ocampo-edificio/balcon.jpg','ocampo-edificio/abajo.jpg','ocampo-edificio/vista-arriba.jpg','ocampo-edificio/vista-galeria.jpg'],
+ ['casa-sur/pileta.jpg','casa-sur/lateral.jpg','casa-sur/noche.jpg','casa-sur/ventanal.jpg'],
+ ['casa-laguna/image3.jpg','casa-laguna/image1.jpg','casa-laguna/image2.jpg','casa-laguna/image4.jpeg','casa-laguna/image5.jpeg','casa-laguna/image6.jpg'],
+ ['jacaranda/sillon.jpg','jacaranda/cocina.jpg','jacaranda/isla.jpg','jacaranda/balcon.jpg','jacaranda/vista-cocina.jpg'],
+];
+(() => {
+ const box=$('.project-detail-image'), img=$('#projectImage');
+ const flecha=(cls,label,d)=>{const b=document.createElement('button');b.type='button';b.className='gal-btn '+cls;b.setAttribute('aria-label',label);b.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="'+d+'"/></svg>';return b;};
+ const prev=flecha('gal-prev','Foto anterior','M20 12H4m7-7-7 7 7 7'), next=flecha('gal-next','Foto siguiente','M4 12h16m-7-7 7 7-7 7');
+ const cuenta=document.createElement('span');cuenta.className='gal-count';
+ box.append(prev,next,cuenta);
+ let fotos=[], i=0, titulo='';
+ function mostrar(n){
+  i=(n+fotos.length)%fotos.length;
+  img.src='assets/images/'+fotos[i];img.alt=titulo+' — foto '+(i+1)+' de '+fotos.length;
+  cuenta.textContent=(i+1)+' / '+fotos.length;
+  if(fotos.length>1)new Image().src='assets/images/'+fotos[(i+1)%fotos.length];
+ }
+ document.querySelectorAll('.project').forEach(card=>card.querySelector('.project-select').addEventListener('click',()=>{
+  const n=Number(card.dataset.project);
+  fotos=GALERIAS[n]||[];titulo=PROJECTS[n].title;
+  const varias=fotos.length>1;prev.hidden=next.hidden=cuenta.hidden=!varias;
+  if(fotos.length)mostrar(0);
+ }));
+ prev.addEventListener('click',()=>mostrar(i-1));
+ next.addEventListener('click',()=>mostrar(i+1));
+ projectDialog.addEventListener('keydown',e=>{
+  if(fotos.length<2)return;
+  if(e.key==='ArrowRight')mostrar(i+1);
+  if(e.key==='ArrowLeft')mostrar(i-1);
+ });
+ // Deslizar con el dedo en el celular.
+ let x0=null;
+ box.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true});
+ box.addEventListener('touchend',e=>{
+  if(x0===null||fotos.length<2)return;
+  const dx=e.changedTouches[0].clientX-x0;x0=null;
+  if(Math.abs(dx)>45)mostrar(i+(dx<0?1:-1));
+ });
+})();
