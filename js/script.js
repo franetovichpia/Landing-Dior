@@ -15,7 +15,7 @@ const HERO_FOTOS = [
  'assets/images/casa-sur/pileta.jpg',
  'assets/images/jacaranda/balcon.jpg',
 ];
-const CONTACTO = { whatsapp: '5491121542210', email: '' };
+const CONTACTO = { whatsapp: '5491151234303', email: '' };
 // Access Key de Web3Forms (web3forms.com): las consultas del formulario llegan
 // automáticamente al mail configurado ahí. Para cambiar el mail de destino,
 // generar una nueva key en Web3Forms y reemplazarla acá.
