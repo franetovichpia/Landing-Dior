@@ -453,3 +453,15 @@ footer{padding-bottom:45px}
 .gal-count{position:absolute;left:50%;bottom:14px;translate:-50% 0;background:#14201acc;color:#fff;font-size:.75rem;letter-spacing:.08em;padding:5px 12px;border-radius:30px}
 .gal-btn[hidden],.gal-count[hidden]{display:none}
 @media(max-width:800px){.project-detail-image{position:relative}}
+
+
+/* ===== Cómo trabajo en celular: los puntos se apilan como tarjetas al scrollear ===== */
+@media(max-width:800px){
+.steps{border-top:0;display:grid;gap:18px;grid-auto-rows:1fr}
+.steps .step{position:sticky;top:calc(92px + var(--i,0)*10px);grid-template-columns:44px 1fr;gap:14px;align-content:start;background:#fffdf8;border:1px solid var(--line);border-radius:14px;padding:22px 20px 24px;box-shadow:0 -10px 26px #1d2a231f}
+.steps .step:nth-child(2){--i:1}
+.steps .step:nth-child(3){--i:2}
+.steps .step:nth-child(4){--i:3}
+.steps .step:nth-child(5){--i:4}
+.steps .step:nth-child(6){--i:5}
+}
