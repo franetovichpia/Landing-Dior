@@ -434,3 +434,6 @@ footer{padding-bottom:45px}
 .privacy-content p{margin:0;font-size:.92rem}
 .privacy-content .privacy-date{margin-top:26px;font-size:.78rem;opacity:.75}
 @media(min-width:801px){.process-grid>div:first-child>.text-link{align-self:flex-start}}
+
+/* Arreglo: en las tarjetas pares el texto quedaba corrido hacia abajo y se cortaba */
+.works-anim .project.in-view .project-meta,.works-anim .project.in-view .project-name,.works-anim .project.in-view .project-idea{translate:none!important;opacity:1!important}

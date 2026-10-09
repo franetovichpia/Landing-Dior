@@ -237,3 +237,21 @@ $('#copyInquiry').addEventListener('click',async()=>{
  try{await navigator.clipboard.writeText($('#inquiryText').value);$('#copyStatus').textContent='Consulta copiada.';}
  catch{$('#inquiryText').focus();$('#inquiryText').select();$('#copyStatus').textContent='El texto está seleccionado. Copialo con Ctrl+C o la opción Copiar de tu dispositivo.';}
 });
+
+// ===== "Contame tu idea": mínimo y máximo de caracteres, con contador =====
+(() => {
+ const MIN=30, MAX=1000;
+ const idea=$('#mensaje');
+ idea.maxLength=MAX;
+ const contador=document.createElement('small');
+ contador.className='field-hint';
+ idea.after(contador);
+ function revisar(){
+  const n=idea.value.trim().length;
+  idea.setCustomValidity(n>=MIN?'':'Contanos un poco más: mínimo '+MIN+' caracteres.');
+  contador.textContent=n<MIN?'Mínimo '+MIN+' caracteres. Llevás '+n+'.':n+' de '+MAX+' caracteres.';
+ }
+ idea.addEventListener('input',revisar);
+ $('#contactForm').addEventListener('reset',()=>setTimeout(revisar));
+ revisar();
+})();
