@@ -346,3 +346,91 @@ footer{padding-bottom:45px}
 
 /* Contador "+15 años" */
 .profile-count[data-prefix]::before{content:attr(data-prefix)}
+
+/* Logo "Diorf." con tipografía caligráfica (nav y marca de agua) */
+.mark,.hero-monogram{font-family:'Pinyon Script','Cormorant Garamond',cursive;font-style:normal;font-weight:400;letter-spacing:0}
+.mark{font-size:2.15rem;line-height:1.1;padding:2px 14px 0 2px}
+.hero-monogram{font-size:clamp(110px,15vw,230px);right:7%;top:150px}
+@media(max-width:800px){.hero-monogram{font-size:110px;right:6%;top:120px}}
+@media(max-width:540px){.mark{font-size:1.8rem;padding-right:10px}}
+
+/* ===== OBRAS: 4 tarjetas con la foto de fondo y el texto encima ===== */
+.works .gallery-tools{display:none}
+.works .project-grid{display:grid;grid-auto-flow:row;grid-auto-columns:auto;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;overflow:visible;scroll-snap-type:none;padding:0}
+.works .project-grid .project{position:relative;border-radius:14px;overflow:hidden;background:#1d2a23;box-shadow:0 10px 30px #1d2a2318}
+.works .project-select{display:block;position:relative;height:100%}
+.works .project-media{display:block;aspect-ratio:3/4.2;background:#1d2a23}
+.works .project-media img{filter:saturate(.85);transform:scale(1.02);transition:transform .9s,filter .9s}
+.works .project:hover .project-media img{transform:scale(1.07);filter:saturate(1)}
+.works .project-media:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,#14201acc 72%,#14201af2)}
+.works .project-open{top:14px;right:14px;bottom:auto;border-radius:30px;font-size:.68rem;padding:7px 12px;gap:8px;z-index:1;opacity:0;transition:opacity .3s}
+.works .project:hover .project-open,.works .project-select:focus-visible .project-open{opacity:1}
+.works .project-open .line-icon{width:13px;height:13px}
+.works .project-info{position:absolute;inset:auto 0 0;margin:0;padding:20px;border:0;color:var(--white)}
+.works .project-meta{display:inline-block;min-height:0;background:#fbfaf6;color:var(--green);padding:3px 8px;border-radius:3px;font-size:.56rem;letter-spacing:.08em;line-height:1.6;margin-bottom:12px}
+.works .project-name{font-size:1.7rem;color:var(--white)}
+.works .project-idea{font-size:1.08rem;color:#e6e6dc;margin-top:8px;max-width:none}
+@media(max-width:1100px){.works .project-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.works .project-media{aspect-ratio:4/4.2}}
+@media(hover:none){.works .project-open{opacity:1}}
+/* Celular: una obra por pantalla; al scrollear, la siguiente sube y tapa a la anterior */
+@media(max-width:620px){
+.works .project-grid{grid-template-columns:1fr;gap:26px}
+.works .project-grid .project{position:sticky;top:calc(84px + var(--i,0)*12px);box-shadow:0 -14px 34px #0f1a1455}
+.works .project-grid .project:nth-child(2){--i:1}
+.works .project-grid .project:nth-child(3){--i:2}
+.works .project-grid .project:nth-child(4){--i:3}
+.works .project-media{aspect-ratio:auto;height:min(72svh,560px)}
+.works .project-info{padding:22px}
+.works .project-name{font-size:2rem}
+.works .project-idea{font-size:1.3rem}
+.works .works-footer{margin-top:40px}
+}
+
+/* Obras: animación de entrada (foto que se asienta, textos que llegan desde los costados y suben) */
+.works-anim .project-media img{transform:scale(1.18);transition:transform 1.4s cubic-bezier(.16,1,.3,1),filter .9s}
+.works-anim .project.in-view .project-media img{transform:scale(1.02)}
+.works-anim .project.in-view:hover .project-media img{transform:scale(1.07)}
+.works-anim .project-meta,.works-anim .project-name,.works-anim .project-idea{opacity:0;transition:opacity .7s ease,translate .9s cubic-bezier(.16,1,.3,1)}
+.works-anim .project-meta{translate:0 18px;transition-delay:.15s}
+.works-anim .project-name{translate:-60px 0;transition-delay:.3s}
+.works-anim .project-idea{translate:60px 0;transition-delay:.5s}
+.works-anim .project:nth-child(even) .project-name{translate:60px 0}
+.works-anim .project:nth-child(even) .project-idea{translate:-60px 0}
+.works-anim .project.in-view .project-meta,.works-anim .project.in-view .project-name,.works-anim .project.in-view .project-idea{opacity:1;translate:none}
+@media(min-width:621px){.works-anim .project:nth-child(2) *{transition-delay:.25s}.works-anim .project:nth-child(3) *{transition-delay:.4s}.works-anim .project:nth-child(4) *{transition-delay:.55s}
+.works-anim .project-name,.works-anim .project:nth-child(even) .project-name,.works-anim .project-idea,.works-anim .project:nth-child(even) .project-idea{translate:0 26px}}
+
+/* ===== AJUSTES: retrato, tarjetas de obras, foto de proceso, contador, privacidad ===== */
+/* Retrato: sin filtro ni inclinación para que la foto se vea nítida */
+.portrait-frame,.portrait-frame:hover{transform:none}
+.portrait-frame img{filter:none}
+/* Obras: el texto nunca se recorta (la tarjeta crece si la pregunta ocupa más líneas) */
+.works .project-select{display:flex;flex-direction:column;justify-content:flex-end;aspect-ratio:3/4.2;height:auto;min-height:100%}
+.works .project-media{position:absolute;inset:0;aspect-ratio:auto;height:auto}
+.works .project-info{position:relative;inset:auto;z-index:1;padding-top:70px}
+@media(max-width:1100px){.works .project-select{aspect-ratio:4/4.2}.works .project-media{aspect-ratio:auto}}
+@media(max-width:620px){.works .project-select{aspect-ratio:auto;min-height:min(72vh,560px);min-height:min(72svh,560px)}
+.works .project-media{height:auto}
+.works .project-info{padding-bottom:26px}}
+/* Cómo trabajo: la foto llega hasta el último punto */
+@media(min-width:801px){
+.process-grid>div:first-child{display:flex;flex-direction:column}
+.process-photo{flex:1;max-width:none;aspect-ratio:auto;min-height:320px;position:relative;order:5;margin-top:34px}
+.process-photo img{position:absolute;inset:0}
+}
+/* Contador: números parejos y etiquetas más grandes */
+.profile-count{font-variant-numeric:lining-nums tabular-nums;font-feature-settings:"lnum" 1,"tnum" 1;letter-spacing:-.01em}
+.wide-counters span:not(.sr-only){font-size:1rem;letter-spacing:.01em;margin-top:12px;max-width:240px}
+.stat-icon{width:38px;height:38px;margin-bottom:14px}
+@media(max-width:1000px){.wide-counters span:not(.sr-only){font-size:.9rem}}
+@media(max-width:540px){.wide-counters span:not(.sr-only){font-size:.82rem}}
+/* Política de privacidad */
+.privacy-open{background:none;border:0;padding:0;color:inherit;font:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.privacy-open:hover{color:var(--lilac)}
+#privacyDialog{border-radius:20px;width:min(680px,94vw)}
+.privacy-content h2{font-size:2.6rem;margin-bottom:18px}
+.privacy-content h3{font:600 .78rem/1.5 'Manrope',sans-serif;letter-spacing:.12em;text-transform:uppercase;margin:24px 0 6px}
+.privacy-content p{margin:0;font-size:.92rem}
+.privacy-content .privacy-date{margin-top:26px;font-size:.78rem;opacity:.75}
+@media(min-width:801px){.process-grid>div:first-child>.text-link{align-self:flex-start}}
