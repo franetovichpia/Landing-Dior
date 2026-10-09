@@ -301,3 +301,22 @@ const GALERIAS = [
   if(Math.abs(dx)>45)mostrar(i+(dx<0?1:-1));
  });
 })();
+
+
+
+// ===== Ficha de Jacarandá =====
+PROJECTS[3] = {
+ title: 'Jacarandá',
+ facts: 'Ituzaingó, Buenos Aires · Departamento · Diseño interior',
+  question: 'La cocina se extiende de pared a pared prácticamente sin ser percibida por la vista.',
+ scope: 'Diseño interior de un departamento pequeño en un primer piso, definido por su estructura de hormigón a la vista y grandes superficies vidriadas hacia las dos calles de la esquina.',
+ highlights: [
+  'Una isla cuadrada en el centro del área social reúne cocinar y comer en un mismo mueble de 90 cm de alto, frente a la mesada de hormigón alisado preexistente.',
+  'La isla contiene horno, guardado y estantes; su tapa de cuarzo se extiende sobre dos lados como mesa para cuatro banquetas.',
+  'Tomas eléctricas ocultas permiten usarla durante el día como espacio de trabajo.',
+  'Un estante flotante de chapa negra sostiene libros y cafetera: la cocina va de pared a pared casi sin percibirse.',
+  'Nominado a los Golden Trezzini Awards 2023 · Best Implemented Apartment.'
+ ],
+ credits: '',
+ url: 'https://www.estudiomorton.com/obras'
+};
