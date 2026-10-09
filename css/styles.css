@@ -465,3 +465,14 @@ footer{padding-bottom:45px}
 .steps .step:nth-child(5){--i:4}
 .steps .step:nth-child(6){--i:5}
 }
+
+/* Contacto en celular: más aire a los costados */
+@media(max-width:800px){
+.contact .wrap{width:calc(100% - 72px)}
+}
+
+/* Celular: más aire a los costados solo en bloques de texto (no en tarjetas ni fotos) */
+@media(max-width:800px){
+.hero-content,.intro-side,.portrait-column>.eyebrow,.listen-heading,.listen .principles,.listen-tags,.audiences-heading,.works .section-head,.works-footer,.recognition-heading,.recognition-details{padding-inline:16px}
+.process-grid>div:first-child>:not(.process-photo){margin-inline:16px}
+}
