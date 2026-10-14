@@ -518,3 +518,28 @@ footer{padding-bottom:45px}
 .press-band{grid-template-columns:1fr auto;gap:12px 18px;padding:22px}
 .press-label{grid-column:1/-1;border-right:0;padding-right:0}
 }
+/* Testimonios: versión angosta con efecto vidrio */
+.press-band{width:min(720px,100%);margin:26px auto 0;grid-template-columns:auto 1fr auto;gap:18px;padding:14px 16px 14px 22px;border-radius:999px;color:var(--green);background:linear-gradient(135deg,rgba(255,255,255,.62),rgba(255,255,255,.28) 60%,rgba(201,186,208,.25));-webkit-backdrop-filter:blur(14px) saturate(130%);backdrop-filter:blur(14px) saturate(130%);border:1px solid rgba(255,255,255,.85);box-shadow:0 10px 30px rgba(37,55,45,.10),inset 0 1px 0 rgba(255,255,255,.9)}
+.press-band:hover{background:linear-gradient(135deg,rgba(255,255,255,.8),rgba(255,255,255,.45) 60%,rgba(201,186,208,.35));box-shadow:0 14px 34px rgba(37,55,45,.14),inset 0 1px 0 #fff}
+.press-label{font-size:.6rem;color:#33203a;padding-right:18px;border-right:1px solid rgba(37,55,45,.2)}
+.press-text{font-size:clamp(1.05rem,1.4vw,1.25rem)}
+.press-text em{color:#33203a}
+.press-arrow{width:38px;height:38px;border-color:rgba(37,55,45,.3)}
+.press-arrow .line-icon{width:15px;height:15px}
+.press-band:hover .press-arrow{background:var(--green);color:var(--paper)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.press-band{background:rgba(250,248,241,.92)}}
+@media(max-width:800px){.press-band{border-radius:18px;padding:16px 16px 16px 20px;gap:8px 14px}.press-label{border-right:0;padding-right:0}}
+@media(min-width:801px){.press-band{width:min(840px,100%)}.press-text{white-space:nowrap}}
+/* Testimonios: vidrio en verde */
+.press-band{color:var(--white);background:linear-gradient(135deg,rgba(32,58,47,.92),rgba(32,58,47,.78) 55%,rgba(75,110,92,.72));border:1px solid rgba(255,255,255,.22);box-shadow:0 12px 32px rgba(20,32,26,.28),inset 0 1px 0 rgba(255,255,255,.25)}
+.press-band:hover{background:linear-gradient(135deg,rgba(32,58,47,.97),rgba(40,70,57,.88) 55%,rgba(85,122,103,.8));box-shadow:0 16px 36px rgba(20,32,26,.34),inset 0 1px 0 rgba(255,255,255,.3)}
+.press-label{color:var(--lilac);border-right-color:rgba(255,255,255,.25)}
+.press-text em{color:#e6dbe9}
+.press-arrow{border-color:rgba(255,255,255,.45)}
+.press-band:hover .press-arrow{background:var(--paper);color:var(--green)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.press-band{background:var(--green)}}
+/* Testimonios: del ancho de las dos tarjetas */
+
+.press-band{width:100%;border-radius:4px}
+@media(min-width:801px){.press-band{width:100%;padding:16px 18px 16px 28px}}
+@media(max-width:800px){.press-band{border-radius:4px}}
