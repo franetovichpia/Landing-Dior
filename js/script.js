@@ -15,7 +15,7 @@ const CONTACTO = { whatsapp: '5491151234303', email: '' };
 // Access Key de Web3Forms (web3forms.com): las consultas del formulario llegan
 // automáticamente al mail configurado ahí. Para cambiar el mail de destino,
 // generar una nueva key en Web3Forms y reemplazarla acá.
-const WEB3FORMS_ACCESS_KEY = '7e33ae32-2353-4934-91f7-d619b7b02024';
+const WEB3FORMS_ACCESS_KEY = '689de5ae-38ba-4609-8997-15fb8f5dd2c1';
 const $ = s => document.querySelector(s);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 const header = $('#header'), menu = $('.menu'), navigation = $('#navigation');
