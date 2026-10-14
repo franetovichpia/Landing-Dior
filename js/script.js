@@ -1,15 +1,21 @@
-
-
 'use strict';
 // CONFIGURACIÓN: completar con datos confirmados del estudio.
 // WhatsApp: código de país y número, sólo dígitos. Si hay ambos, se usa WhatsApp.
 // Las imágenes actuales están incrustadas en los atributos src del HTML.
 // Podés sustituir cada src por la URL de la fotografía original de alta calidad.
-const CONTACTO = { whatsapp: '5491121542210', email: '' };
+// FOTOS DE LA PORTADA: pasan en este orden, una cada 3,5 segundos.
+// Para agregar, sacar o reemplazar una foto, editá esta lista (una ruta por línea, entre comillas y con coma).
+// La primera es la que se ve al cargar la página.
+const HERO_FOTOS = [
+ 'assets/images/ocampo-edificio/frente.jpg',
+ 'assets/images/ocampo-edificio/esquina.jpg',
+ 'assets/images/casa-laguna/image3.jpg',
+];
+const CONTACTO = { whatsapp: '5491151234303', email: '' };
 // Access Key de Web3Forms (web3forms.com): las consultas del formulario llegan
 // automáticamente al mail configurado ahí. Para cambiar el mail de destino,
 // generar una nueva key en Web3Forms y reemplazarla acá.
-const WEB3FORMS_ACCESS_KEY = 'a08fd24a-46f7-4738-874c-51c2223ad75b';
+const WEB3FORMS_ACCESS_KEY = '7e33ae32-2353-4934-91f7-d619b7b02024';
 const $ = s => document.querySelector(s);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 const header = $('#header'), menu = $('.menu'), navigation = $('#navigation');
@@ -39,7 +45,7 @@ function finishCounts(){
 }
 function animateCount(el){
  const end=Number(el.dataset.target),start=performance.now();
- if(Number.isNaN(end)){el.textContent=el.dataset.target;return;}
+ if(!Number.isFinite(end)){el.textContent=el.dataset.target;return;}
  function frame(now){
   const progress=Math.min((now-start)/1100,1);
   el.textContent=String(Math.round(end*(1-Math.pow(1-progress,3))));
@@ -71,6 +77,12 @@ if('IntersectionObserver' in window && !reduced.matches){
  countEls.forEach(el=>counterObserver.observe(el));
 }
 reduced.addEventListener('change',()=>{if(reduced.matches)revealAllSections();});
+// Arma la portada con las fotos de HERO_FOTOS (lista al principio de este archivo).
+const heroArt=$('.hero-art');
+if(heroArt&&HERO_FOTOS.length)heroArt.replaceChildren(...HERO_FOTOS.map((src,i)=>{
+ const img=new Image();img.alt='';img.decoding='async';img.className='hero-slide'+(i===0?' active':'');
+ if(i===0)img.fetchPriority='high';img.src=src;return img;
+}));
 const slides=[...document.querySelectorAll('.hero-slide')], dots=[...document.querySelectorAll('.slide-dot')];
 let currentSlide=0, paused=reduced.matches, slideTimer;
 function showSlide(n){currentSlide=n;slides.forEach((img,i)=>img.classList.toggle('active',i===n));dots.forEach((dot,i)=>dot.setAttribute('aria-pressed',String(i===n)));}
@@ -83,7 +95,7 @@ syncSlides();
 
 
 const projectDialog=$('#projectDialog');
-const PROJECTS=[{"title": "Edificio Ocampo", "facts": "Ituzaingó · 2.000 m² · Construcción 2018–2021", "question": "La independencia de una casa, en altura.", "scope": "Proyecto y dirección de un edificio con 13 departamentos, dos locales gastronómicos, terrazas y cocheras.", "highlights": ["Viviendas de distintas tipologías, adaptables a diversas formas de convivencia.", "Expansiones generosas, vegetación y terrazas que acercan el exterior a cada unidad.", "Vacíos entre viviendas y circulaciones semicubiertas para favorecer privacidad, iluminación y ventilación."], "credits": "Proyecto y dirección: Diorella Fortunati. Fotografía de obra terminada: Federico Kulekdjian.", "url": "https://www.estudiomorton.com/edificioocampo"}, {"title": "Casa Sur", "facts": "Horizontes al Sur, Canning · 135 m² · Construcción 2022", "question": "Hacer más con los recursos disponibles.", "scope": "Proyecto y dirección de una vivienda familiar, con especial atención al presupuesto, la orientación y la flexibilidad de sus espacios.", "highlights": ["Dos bloques articulados por un núcleo de servicios que organiza el acceso.", "Áreas flexibles que admiten divisiones posteriores y cambios en la vida familiar.", "Cubiertas premoldeadas y espacios semicubiertos como parte de la estrategia constructiva."], "credits": "Proyecto y dirección: Diorella Fortunati. Fotografía: Matias Godec.", "url": "https://www.estudiomorton.com/casasur"}, {"title": "Casa Laguna", "facts": "Horizontes al Sur, Canning · 170 m² · Construcción 2022", "question": "Una casa que construye su propio paisaje.", "scope": "Proyecto y dirección de una vivienda frente a la laguna, organizada alrededor de la privacidad y de un espacio común flexible conectado con el exterior.", "highlights": ["Patio de acceso y espacios perimetrales que resguardan la intimidad.", "Patio de agua que separa el dormitorio principal del resto de la vivienda.", "Continuidad visual entre los espacios sociales, el jardín, la pileta y la laguna."], "credits": "Proyecto: Diorella Fortunati y Nuria Jover. Dirección: Diorella Fortunati.", "url": "https://www.estudiomorton.com/casalaguna"}, {"title": "Edificio Calvino", "facts": "Ituzaingó · 4.000 m² proyectados · Proyecto 2017", "question": "Distintas actividades, un mismo proyecto.", "scope": "Proyecto de un edificio de usos mixtos con locales, oficinas, departamentos y terrazas. La ficha del estudio informa superficie a construir.", "highlights": ["Unidades flexibles con al menos tres alternativas de uso.", "Posibilidad de definir tabiques desde la compra en pozo, manteniendo el núcleo húmedo en una posición fija.", "Opciones de uno o dos dormitorios, o dormitorio y oficina, con expansiones y distintas condiciones de privacidad."], "credits": "Proyecto: Diorella Fortunati. Imágenes: Estudio Morton.", "url": "https://www.estudiomorton.com/edificiocalvino"}];
+const PROJECTS=[{"title": "Edificio Ocampo", "facts": "Ituzaingó · 2.000 m² · Construcción 2018–2021", "question": "La independencia de una casa, en altura.", "scope": "Proyecto y dirección de un edificio con 13 departamentos, dos locales gastronómicos, terrazas y cocheras.", "highlights": ["Viviendas de distintas tipologías, adaptables a diversas formas de convivencia.", "Expansiones generosas, vegetación y terrazas que acercan el exterior a cada unidad.", "Vacíos entre viviendas y circulaciones semicubiertas para favorecer privacidad, iluminación y ventilación."], "credits": "Proyecto y dirección: Diorella Fortunati. Fotografía de obra terminada: Federico Kulekdjian.", "url": "https://www.estudiomorton.com/edificioocampo"}, {"title": "Casa Sur", "facts": "Horizontes al Sur, Canning · 135 m² · Construcción 2022", "question": "Hacer más con los recursos disponibles.", "scope": "Proyecto y dirección de una vivienda familiar, con especial atención al presupuesto, la orientación y la flexibilidad de sus espacios.", "highlights": ["Dos bloques articulados por un núcleo de servicios que organiza el acceso.", "Áreas flexibles que admiten divisiones posteriores y cambios en la vida familiar.", "Cubiertas premoldeadas y espacios semicubiertos como parte de la estrategia constructiva."], "credits": "Proyecto y dirección: Diorella Fortunati. Fotografía: Matias Godec.", "url": "https://www.estudiomorton.com/casasur"}, {"title": "Casa Laguna", "facts": "Horizontes al Sur, Canning · 170 m² · Construcción 2022", "question": "Una casa que construye su propio paisaje.", "scope": "Proyecto y dirección de una vivienda frente a la laguna, organizada alrededor de la privacidad y de un espacio común flexible conectado con el exterior.", "highlights": ["Patio de acceso y espacios perimetrales que resguardan la intimidad.", "Patio de agua que separa el dormitorio principal del resto de la vivienda.", "Continuidad visual entre los espacios sociales, el jardín, la pileta y la laguna."], "credits": "Proyecto: Diorella Fortunati y Nuria Jover. Dirección: Diorella Fortunati.", "url": "https://www.estudiomorton.com/casalaguna"}, {"title": "Jacarandá", "facts": "Departamento", "question": "Un departamento pensado desde el interior.", "scope": "TEXTO PROVISORIO: completar con la descripción de la obra.", "highlights": ["Nominado a los Golden Trezzini Awards 2023 · Best Implemented Apartment."], "credits": "", "url": "https://www.estudiomorton.com/obras"}];
 let currentInterest='';
 document.querySelectorAll('.project').forEach(card=>{
  card.querySelector('.project-select').addEventListener('click',()=>{
@@ -100,6 +112,14 @@ document.querySelectorAll('.project').forEach(card=>{
   projectDialog.showModal();projectDialog.scrollTop=0;
  });
 });
+// Obras: cada tarjeta anima su foto y sus textos cuando entra en pantalla.
+if('IntersectionObserver' in window && !reduced.matches){
+ const grid=$('#worksTrack');grid.classList.add('works-anim');
+ const cardObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+  if(entry.isIntersecting){entry.target.classList.add('in-view');cardObserver.unobserve(entry.target);}
+ }),{threshold:.35});
+ grid.querySelectorAll('.project').forEach(card=>cardObserver.observe(card));
+}
 const worksTrack=$('#worksTrack'), worksPrev=$('#worksPrev'), worksNext=$('#worksNext');
 function syncWorksControls(){
  worksPrev.disabled=worksTrack.scrollLeft<2;
@@ -121,6 +141,7 @@ projectDialog.addEventListener('close',()=>{document.body.classList.remove('proj
 new MutationObserver(()=>document.body.classList.toggle('project-modal-open',projectDialog.open)).observe(projectDialog,{attributes:true,attributeFilter:['open']});
 document.querySelectorAll('[data-interest][href]').forEach(link=>link.addEventListener('click',()=>{$('#tipo').value=link.dataset.interest;}));
 $('#projectInquiry').addEventListener('click',()=>{$('#tipo').value=currentInterest;projectDialog.close();});
+document.querySelectorAll('.privacy-open').forEach(b=>b.addEventListener('click',()=>{$('#privacyDialog').showModal();$('#privacyDialog').scrollTop=0;}));
 document.querySelectorAll('dialog').forEach(dialog=>{
  dialog.querySelector('.dialog-close').addEventListener('click',()=>dialog.close());
  dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
@@ -151,6 +172,14 @@ document.querySelectorAll('[data-wa]').forEach(link=>{
  }
 });
 
+// Botón de Revista Living: se muestra sólo cuando se pega el link real en el HTML.
+const livingLink=$('#livingLink');
+if(livingLink&&livingLink.getAttribute('href').startsWith('PEGAR'))livingLink.hidden=true;
+// Teléfono obligatorio con cantidad de dígitos exacta (Argentina: 10, sin 0 ni 15).
+const telInput=$('#telefono');
+function telDigits(){let d=telInput.value.replace(/\D/g,'');if(d.startsWith('54'))d=d.slice(2);if(d.length===11&&d.startsWith('9'))d=d.slice(1);return d;}
+function checkTel(){const d=telDigits();telInput.setCustomValidity(d.length===10&&!d.startsWith('0')?'':'Revisá el teléfono: código de área + número, sin 0 ni 15. Deben ser 10 dígitos (ej. 11 2345 6789).');}
+telInput.addEventListener('input',checkTel);checkTel();
 const connected=!!(whatsapp||email);
 $('#submitLabel').textContent='Enviar consulta';$('#contactNote').textContent='Tu consulta se envía directamente por mail.'+(connected?whatsapp?' También podés continuar por WhatsApp.':' También podés continuar por correo.':'');
 $('#contactForm').addEventListener('submit',async e=>{
@@ -158,8 +187,9 @@ $('#contactForm').addEventListener('submit',async e=>{
  const form=e.currentTarget;
  const f=new FormData(form);
  const text=['Hola, Diorella. Me gustaría conversar sobre mi proyecto.','',
- 'Nombre: '+f.get('nombre'),'Email: '+f.get('email'),'Teléfono: '+(f.get('telefono')||'No indicado'),
- 'Proyecto: '+f.get('tipo'),'Ubicación: '+(f.get('ubicacion')||'A definir'),'',f.get('mensaje')].join('\n');
+ 'Nombre: '+f.get('nombre'),'Email: '+f.get('email'),'Teléfono: '+telDigits(),
+ 'Qué estoy imaginando: '+f.get('tipo'),'Dónde sería: '+f.get('ubicacion'),'Presupuesto a invertir: '+f.get('presupuesto'),
+ 'Modo de contacto: '+f.get('modo'),'Asesoramiento presencial en el lugar: '+(f.get('presencial')?'Sí, enviar valor':'No'),'',f.get('mensaje')].join('\n');
  $('#inquiryText').value=text;$('#copyStatus').textContent='';
  const send=$('#sendInquiry');send.hidden=!connected;
  if(connected){
@@ -180,16 +210,20 @@ $('#contactForm').addEventListener('submit',async e=>{
     from_name:f.get('nombre'),
     email:f.get('email'),
     Nombre:f.get('nombre'),
-    Teléfono:f.get('telefono')||'No indicado',
-    'Tipo de proyecto':f.get('tipo'),
-    Ubicación:f.get('ubicacion')||'A definir',
-    Mensaje:f.get('mensaje')
+    Teléfono:telDigits(),
+    'Qué está imaginando':f.get('tipo'),
+    'Dónde sería':f.get('ubicacion'),
+    'Presupuesto a invertir':f.get('presupuesto'),
+    'Modo de contacto':f.get('modo'),
+    'Asesoramiento presencial':f.get('presencial')?'Sí, enviar valor':'No',
+    Idea:f.get('mensaje'),
+    'Aceptó la política de privacidad':'Sí'
    })
   });
   const data=await res.json();
   if(!data.success)throw new Error(data.message||'Error al enviar');
   $('#inquiryExplanation').textContent='Tu consulta ya fue enviada. Te van a responder a la brevedad.'+(connected?' También podés continuar '+(whatsapp?'por WhatsApp.':'por correo.'):'');
-  form.reset();
+  form.reset();checkTel();
  }catch(err){
   $('#inquiryExplanation').textContent='No pudimos enviar tu consulta automáticamente. Podés copiarla'+(connected?' o continuar '+(whatsapp?'por WhatsApp.':'por correo.'):'.');
  }finally{
@@ -201,3 +235,106 @@ $('#copyInquiry').addEventListener('click',async()=>{
  catch{$('#inquiryText').focus();$('#inquiryText').select();$('#copyStatus').textContent='El texto está seleccionado. Copialo con Ctrl+C o la opción Copiar de tu dispositivo.';}
 });
 
+// ===== "Contame tu idea": mínimo y máximo de caracteres, con contador =====
+(() => {
+ const MIN=30, MAX=1000;
+ const idea=$('#mensaje');
+ idea.maxLength=MAX;
+ const contador=document.createElement('small');
+ contador.className='field-hint';
+ idea.after(contador);
+ function revisar(){
+  const n=idea.value.trim().length;
+  idea.setCustomValidity(n>=MIN?'':'Contanos un poco más: mínimo '+MIN+' caracteres.');
+  contador.textContent=n<MIN?'Mínimo '+MIN+' caracteres. Llevás '+n+'.':n+' de '+MAX+' caracteres.';
+ }
+ idea.addEventListener('input',revisar);
+ $('#contactForm').addEventListener('reset',()=>setTimeout(revisar));
+ revisar();
+})();
+
+
+// ===== GALERÍA EN LA FICHA DE CADA OBRA =====
+// Una lista por obra, en el mismo orden que las tarjetas. La primera foto es la que abre la ficha.
+// Para agregar o quitar fotos, editá estas listas (el sitio no puede leer las carpetas solo).
+const GALERIAS = [
+ ['ocampo-edificio/frente.jpg','ocampo-edificio/esquina.jpg','ocampo-edificio/lateral.jpg','ocampo-edificio/balcon.jpg','ocampo-edificio/abajo.jpg','ocampo-edificio/vista-arriba.jpg','ocampo-edificio/vista-galeria.jpg'],
+ ['casa-sur/pileta.jpg','casa-sur/lateral.jpg','casa-sur/noche.jpg','casa-sur/ventanal.jpg'],
+ ['casa-laguna/image3.jpg','casa-laguna/image1.jpg','casa-laguna/image2.jpg','casa-laguna/image4.jpeg','casa-laguna/image5.jpeg','casa-laguna/image6.jpg'],
+ ['jacaranda/cocina.jpg','jacaranda/sillon.jpg','jacaranda/isla.jpg','jacaranda/balcon.jpg','jacaranda/vista-cocina.jpg'],
+];
+(() => {
+ const box=$('.project-detail-image'), img=$('#projectImage');
+ const flecha=(cls,label,d)=>{const b=document.createElement('button');b.type='button';b.className='gal-btn '+cls;b.setAttribute('aria-label',label);b.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="'+d+'"/></svg>';return b;};
+ const prev=flecha('gal-prev','Foto anterior','M20 12H4m7-7-7 7 7 7'), next=flecha('gal-next','Foto siguiente','M4 12h16m-7-7 7 7-7 7');
+ const cuenta=document.createElement('span');cuenta.className='gal-count';
+ box.append(prev,next,cuenta);
+ let fotos=[], i=0, titulo='';
+ function mostrar(n){
+  i=(n+fotos.length)%fotos.length;
+  img.src='assets/images/'+fotos[i];img.alt=titulo+' — foto '+(i+1)+' de '+fotos.length;
+  cuenta.textContent=(i+1)+' / '+fotos.length;
+  if(fotos.length>1)new Image().src='assets/images/'+fotos[(i+1)%fotos.length];
+ }
+ document.querySelectorAll('.project').forEach(card=>card.querySelector('.project-select').addEventListener('click',()=>{
+  const n=Number(card.dataset.project);
+  fotos=GALERIAS[n]||[];titulo=PROJECTS[n].title;
+  const varias=fotos.length>1;prev.hidden=next.hidden=cuenta.hidden=!varias;
+  if(fotos.length)mostrar(0);
+ }));
+ prev.addEventListener('click',()=>mostrar(i-1));
+ next.addEventListener('click',()=>mostrar(i+1));
+ projectDialog.addEventListener('keydown',e=>{
+  if(fotos.length<2)return;
+  if(e.key==='ArrowRight')mostrar(i+1);
+  if(e.key==='ArrowLeft')mostrar(i-1);
+ });
+ // Deslizar con el dedo en el celular.
+ let x0=null;
+ box.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true});
+ box.addEventListener('touchend',e=>{
+  if(x0===null||fotos.length<2)return;
+  const dx=e.changedTouches[0].clientX-x0;x0=null;
+  if(Math.abs(dx)>45)mostrar(i+(dx<0?1:-1));
+ });
+})();
+
+
+
+// ===== Ficha de Jacarandá =====
+PROJECTS[3] = {
+ title: 'Jacarandá',
+ facts: 'Ituzaingó, Buenos Aires · Departamento · Diseño interior',
+  question: 'La cocina se extiende de pared a pared prácticamente sin ser percibida por la vista.',
+ scope: 'Diseño interior de un departamento pequeño en un primer piso, definido por su estructura de hormigón a la vista y grandes superficies vidriadas hacia las dos calles de la esquina.',
+ highlights: [
+  'Una isla cuadrada en el centro del área social reúne cocinar y comer en un mismo mueble de 90 cm de alto, frente a la mesada de hormigón alisado preexistente.',
+  'La isla contiene horno, guardado y estantes; su tapa de cuarzo se extiende sobre dos lados como mesa para cuatro banquetas.',
+  'Tomas eléctricas ocultas permiten usarla durante el día como espacio de trabajo.',
+  'Un estante flotante de chapa negra sostiene libros y cafetera: la cocina va de pared a pared casi sin percibirse.',
+  'Nominado a los Golden Trezzini Awards 2023 · Best Implemented Apartment.'
+ ],
+ credits: '',
+ url: 'https://www.estudiomorton.com/obras'
+};
+// ===== TELÉFONO: solo números, 10 dígitos, formato fijo "11 2345 6789" =====
+(() => {
+ const tel=$('#telefono'), hint=$('#telefonoHint');
+ tel.maxLength=20; tel.inputMode='numeric';
+ tel.addEventListener('input',()=>{
+  let d=tel.value.replace(/\D/g,'');
+  if(d.length>10&&d.startsWith('549'))d=d.slice(3);
+  else if(d.length>10&&d.startsWith('54'))d=d.slice(2);
+  if(d.length>10&&d.startsWith('0'))d=d.slice(1);
+  d=d.slice(0,10);
+  tel.value=[d.slice(0,2),d.slice(2,6),d.slice(6,10)].filter(Boolean).join(' ');
+  checkTel();
+  hint.textContent=d.length===10?'Número completo: 10 dígitos.':'Con código de área, sin 0 ni 15. Llevás '+d.length+' de 10 dígitos.';
+ });
+ // Nombre: hasta 60 caracteres, solo letras.
+ const nombre=$('#nombre'); nombre.maxLength=60;
+ nombre.addEventListener('input',()=>{
+  nombre.value=nombre.value.replace(/[^\p{L} '’.-]/gu,'').replace(/\s{2,}/g,' ');
+  nombre.setCustomValidity(nombre.value.trim().length>=3?'':'Escribí tu nombre completo.');
+ });
+})();
