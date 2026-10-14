@@ -504,3 +504,17 @@ footer{padding-bottom:45px}
 .mark{line-height:1.25;padding:0 14px 6px 2px}
 .hero-monogram{line-height:1.35;padding:0 .25em .35em .1em}
 .hero-monogram em{font-style:normal;padding:0}
+
+/* Testimonios: franja a lo ancho debajo de "Mi casa" y "Mi inversión" */
+.press-band{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:28px;margin-top:22px;padding:26px 32px;background:var(--green);color:var(--white);border-radius:4px;transition:background .3s}
+.press-band:hover{background:#2b4a3c}
+.press-label{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--lilac);padding-right:28px;border-right:1px solid #ffffff30;white-space:nowrap}
+.press-text{font:400 clamp(1.3rem,2vw,1.8rem)/1.25 'Cormorant Garamond',Georgia,serif}
+.press-text em{font-style:italic;color:#e6dbe9}
+.press-arrow{width:48px;height:48px;border:1px solid #ffffff60;border-radius:50%;display:grid;place-items:center;transition:background .3s,color .3s}
+.press-arrow .line-icon{width:18px;height:18px}
+.press-band:hover .press-arrow{background:var(--paper);color:var(--green)}
+@media(max-width:800px){
+.press-band{grid-template-columns:1fr auto;gap:12px 18px;padding:22px}
+.press-label{grid-column:1/-1;border-right:0;padding-right:0}
+}
