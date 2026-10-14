@@ -497,3 +497,10 @@ footer{padding-bottom:45px}
 .audience-testimonial-text{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.82rem;line-height:1.5;text-decoration:underline;text-underline-offset:3px}
 .audience-testimonial-text .line-icon{flex:none;width:16px;height:16px}
 .audience-testimonial:hover{border-color:#ffffff60;background:#ffffff0c}
+
+/* Logo y marca de agua "Dior.f" en caligrafía, con el punto entre Dior y f (sin punto final) */
+.mark,.hero-monogram{font-family:'Pinyon Script','Cormorant Garamond',cursive;font-style:normal;font-weight:400;letter-spacing:0;white-space:nowrap}
+.mark .mark-dot,.hero-monogram .mark-dot{display:inline-block;margin:0 .14em 0 .06em}
+.mark{line-height:1.25;padding:0 14px 6px 2px}
+.hero-monogram{line-height:1.35;padding:0 .25em .35em .1em}
+.hero-monogram em{font-style:normal;padding:0}
