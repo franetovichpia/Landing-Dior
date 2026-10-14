@@ -338,3 +338,20 @@ PROJECTS[3] = {
   nombre.setCustomValidity(nombre.value.trim().length>=3?'':'Escribí tu nombre completo.');
  });
 })();
+
+// ===== Cómo trabajo (celular): al apilarse, la tarjeta tapada oculta su texto =====
+(() => {
+ const cards=[...document.querySelectorAll('.steps .step')];
+ const mq=matchMedia('(max-width:800px)');
+ let raf=0;
+ function update(){
+  raf=0;
+  cards.forEach((c,i)=>{
+   const next=cards[i+1];
+   const covered=mq.matches&&next&&next.getBoundingClientRect().top<=c.getBoundingClientRect().top+70;
+   c.classList.toggle('is-covered',!!covered);
+  });
+ }
+ addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(update);},{passive:true});
+ addEventListener('resize',update);update();
+})();

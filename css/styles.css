@@ -543,3 +543,118 @@ footer{padding-bottom:45px}
 .press-band{width:100%;border-radius:4px}
 @media(min-width:801px){.press-band{width:100%;padding:16px 18px 16px 28px}}
 @media(max-width:800px){.press-band{border-radius:4px}}
+.privacy-content a{text-decoration:underline;text-underline-offset:3px}
+
+/* =====================================================================
+   PULIDO UX/UI (14/10): tipografía, jerarquía, contraste y formulario
+   ===================================================================== */
+/* Base tipográfica */
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-feature-settings:"kern" 1,"liga" 1}
+h1,h2,h3,.project-name,.audience-content h3{text-wrap:balance}
+p,li,.project-idea{text-wrap:pretty}
+h2{letter-spacing:-.025em}
+.eyebrow{font-size:.72rem;letter-spacing:.2em;color:#4a5a50}
+::selection{background:#c9bad0;color:#173a31}
+
+/* Encabezado */
+.mark{padding:0 18px 4px 2px;margin-right:2px}
+.navlinks{font-size:.86rem;letter-spacing:.01em}
+.brand-name{font-size:1.2rem}
+.brand-tag{font-size:.6rem;letter-spacing:.16em}
+
+/* Portada */
+.hero-monogram{right:11%;opacity:.13}
+.hero-copy{font-size:clamp(1.6rem,2.3vw,2.25rem);line-height:1.22;max-width:600px}
+.hero-kicker{letter-spacing:.24em}
+@media(max-width:800px){
+.hero h1{font-size:clamp(3.2rem,14vw,4.4rem);line-height:.98}
+.hero-copy{font-size:1.4rem;line-height:1.3;max-width:330px;margin-top:6px}
+}
+
+/* 01 Mi mirada: textura más suave y párrafos más legibles */
+.intro::before{content:'';display:block;position:absolute;inset:0;top:0;left:0;width:auto;height:auto;transform:none;background:linear-gradient(90deg,rgba(238,234,222,.30),rgba(238,234,222,.62) 55%,rgba(238,234,222,.72));pointer-events:none;z-index:0}
+.intro-grid{z-index:1}
+.intro-side>p{font-size:1.02rem;line-height:1.85;max-width:62ch;color:#1f3027}
+.intro-side>p:first-of-type{font:400 1.45rem/1.4 'Cormorant Garamond',Georgia,serif;color:var(--green);max-width:34ch;margin-bottom:24px}
+@media(max-width:800px){.intro-side>p{font-size:.98rem}.intro-side>p:first-of-type{font-size:1.32rem}}
+
+/* 02 Tu proyecto: jerarquía del título y pasos más legibles */
+.listen{padding:90px 0 80px}
+.listen h2 small{font:italic 400 clamp(1.3rem,1.8vw,1.7rem)/1.2 'Cormorant Garamond',Georgia,serif;letter-spacing:0;text-transform:none;color:#5d4a63;margin-bottom:6px}
+.listen h2{font-size:clamp(2.4rem,4vw,3.8rem);max-width:900px;line-height:1.06}
+.listen .principles{margin-top:10px}
+.listen .principle h3{font-size:1.6rem}
+.listen .num{color:#7a6380;font-style:italic}
+.listen .principle p{font-size:.95rem;line-height:1.7;color:#2a3a31}
+@media(max-width:800px){.listen{padding:56px 0}.listen h2{font-size:2.2rem}.listen .principle p{font-size:.92rem}}
+
+/* ¿Qué estás imaginando? */
+.audiences-heading>p{font-size:1rem;line-height:1.7}
+.audience-description{font-size:.95rem;line-height:1.7}
+.audience-action{font-size:.9rem}
+
+/* 03 Obras */
+.works .section-head p,.works .section-head>p{font-size:1rem}
+.works .project-idea{line-height:1.3}
+
+/* 04 Cómo trabajo */
+.process-lead{font-size:1rem;line-height:1.8}
+.step h3{font-size:.82rem;letter-spacing:.14em;color:var(--green)}
+.step p{font-size:.98rem;line-height:1.8;color:#24352b}
+.step>span{font-size:1.9rem;color:#7a6380}
+/* Celular: tarjetas con su altura natural; la de atrás oculta el texto al quedar tapada */
+@media(max-width:800px){
+.steps{grid-auto-rows:auto}
+.steps .step>*{transition:opacity .35s ease}
+.steps .step.is-covered>*{opacity:0}
+.step p{font-size:.94rem}
+}
+
+/* 05 Contador */
+.recognition-heading h2{font-size:clamp(2.2rem,3.4vw,3.2rem)}
+.wide-counters .profile-count{color:var(--green)}
+
+/* 06 Contacto */
+.contact-heading>p{font-size:1rem;color:#d4dbd0;max-width:330px}
+.contact-card>p{font-size:1.08rem;line-height:1.75;color:#eef0e8}
+.field label,.choice-group legend{font-size:.9rem;color:#e3e7dd;letter-spacing:.01em}
+.field input,.field select,.field textarea{font-size:1.02rem;border-bottom-color:#ffffff66}
+.field input::placeholder,.field textarea::placeholder{color:#98a99a}
+.field-hint{font-size:.76rem;color:#aebdac}
+/* Radios como opciones tipo píldora */
+.choice-group{gap:12px}
+.choice-group .choice{padding:0;cursor:pointer}
+.choice-group .choice input{position:absolute;opacity:0;pointer-events:none}
+.choice-group .choice span{display:inline-flex;align-items:center;gap:10px;padding:11px 20px;border:1px solid #ffffff55;border-radius:999px;font-size:.92rem;transition:background .2s,border-color .2s,color .2s}
+.choice-group .choice span::before{content:'';width:14px;height:14px;border-radius:50%;border:1px solid currentColor;box-sizing:border-box;transition:box-shadow .2s,background .2s}
+.choice-group .choice input:checked+span{background:var(--lilac);border-color:var(--lilac);color:var(--green)}
+.choice-group .choice input:checked+span::before{background:var(--green);box-shadow:inset 0 0 0 3px var(--lilac)}
+.choice-group .choice input:focus-visible+span{outline:2px solid var(--lilac);outline-offset:3px}
+/* Casillas */
+.choice-check input[type=checkbox]{appearance:none;-webkit-appearance:none;width:20px;height:20px;margin:2px 0 0;border:1px solid #ffffff80;border-radius:4px;background:transparent;display:grid;place-content:center;cursor:pointer;flex:none}
+.choice-check input[type=checkbox]::after{content:'';width:10px;height:6px;border:2px solid var(--green);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px);opacity:0}
+.choice-check input[type=checkbox]:checked{background:var(--lilac);border-color:var(--lilac)}
+.choice-check input[type=checkbox]:checked::after{opacity:1}
+.choice-check input[type=checkbox]:focus-visible{outline:2px solid var(--lilac);outline-offset:3px}
+.choice-check{font-size:.9rem;line-height:1.6;color:#dfe4da}
+/* Botón enviar */
+.submit{font-size:.95rem;font-weight:600;letter-spacing:.02em}
+.submit[type=submit]{min-height:62px;padding:18px 26px}
+/* Contacto directo (columna izquierda) */
+.contact-direct{margin-top:44px;display:grid;gap:12px;max-width:340px}
+.contact-direct-label{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--lilac);margin-bottom:4px}
+.contact-direct-link{display:flex;align-items:center;gap:16px;padding:14px 18px;border:1px solid #ffffff2e;border-radius:12px;background:#ffffff08;transition:background .25s,border-color .25s}
+.contact-direct-link:hover{background:#ffffff14;border-color:#ffffff5c}
+.contact-direct-link svg{width:24px;height:24px;flex:none;color:var(--lilac)}
+.contact-direct-link span{display:flex;flex-direction:column;font-size:1rem;color:#f3f4ee}
+.contact-direct-link small{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:#aebdac;margin-bottom:2px}
+@media(max-width:800px){.contact-direct{margin-top:28px;max-width:none}}
+/* Pie */
+footer{font-size:.82rem}
+.footer-credit{font-size:.82rem}
+/* Ajustes: etiquetas sobre fondo oscuro y portada */
+.hero .eyebrow,.hero-kicker{color:#eeeade}
+.contact .eyebrow{color:#cdd6c9}
+.hero-copy{max-width:540px}
+.hero-monogram{opacity:.2}
+@media(max-width:540px){.brand-tag{font-size:.5rem;letter-spacing:.08em;white-space:nowrap}.brand-name{font-size:1rem}}
