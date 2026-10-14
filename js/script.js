@@ -1,102 +1,340 @@
-<!doctype html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#173a31">
-  <meta name="description" content="Diorella Fortunati. Taller de arquitectura y paisaje. Mi mirada sobre el habitar, la vivienda y los proyectos de inversión.">
-  <title>Diorella Fortunati — Taller de arquitectura y paisaje</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Manrope:wght@400;500;600&amp;family=Pinyon+Script&amp;display=swap" rel="stylesheet">
-  <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/images/favicon-dior.png"><link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
-  <link rel="stylesheet" href="css/styles.css"></head>
+'use strict';
+// CONFIGURACIÓN: completar con datos confirmados del estudio.
+// WhatsApp: código de país y número, sólo dígitos. Si hay ambos, se usa WhatsApp.
+// Las imágenes actuales están incrustadas en los atributos src del HTML.
+// Podés sustituir cada src por la URL de la fotografía original de alta calidad.
+// FOTOS DE LA PORTADA: pasan en este orden, una cada 3,5 segundos.
+// Para agregar, sacar o reemplazar una foto, editá esta lista (una ruta por línea, entre comillas y con coma).
+// La primera es la que se ve al cargar la página.
+const HERO_FOTOS = [
+ 'assets/images/ocampo-edificio/frente.jpg',
+ 'assets/images/ocampo-edificio/esquina.jpg',
+ 'assets/images/casa-laguna/image3.jpg',
+];
+const CONTACTO = { whatsapp: '5491151234303', email: '' };
+// Access Key de Web3Forms (web3forms.com): las consultas del formulario llegan
+// automáticamente al mail configurado ahí. Para cambiar el mail de destino,
+// generar una nueva key en Web3Forms y reemplazarla acá.
+const WEB3FORMS_ACCESS_KEY = '7e33ae32-2353-4934-91f7-d619b7b02024';
+const $ = s => document.querySelector(s);
+const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+const header = $('#header'), menu = $('.menu'), navigation = $('#navigation');
+function closeMenu(){navigation.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Abrir menú');}
+menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';navigation.classList.toggle('open',open);menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Cerrar menú':'Abrir menú');});
+navigation.addEventListener('click',e=>{if(e.target.closest('a'))closeMenu();});
+document.addEventListener('click',e=>{if(!header.contains(e.target))closeMenu();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
+matchMedia('(min-width: 801px)').addEventListener('change',closeMenu);
+addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>40),{passive:true});
+header.classList.toggle('scrolled',scrollY>40);
+$('#year').textContent=new Date().getFullYear();
 
-<body>
-<!--
-Edición basada en landing-dior.vercel.app y la devolución suministrada.
-PENDIENTES EDITORIALES: confirmar grafía Fortunati/Fortunatti; selección definitiva
-de cuatro obras y textos de sus enfoques; reemplazar fotografías con originales de Drive.
-CONTACTO: configurar CONTACTO al principio de js/script.js. Sin datos, prepara una consulta
-copiable y nunca simula un envío. No requiere instalar dependencias.
--->
-<a class="skip" href="#inicio">Ir al contenido</a><div class="paper" aria-hidden="true"></div>
-<header id="header"><nav class="wrap" aria-label="Navegación principal">
-<a class="brand" href="#inicio"><span class="mark">Dior<span class="mark-dot">.</span>f</span><span class="brand-text"><span class="brand-name">Diorella Fortunati</span><span class="brand-tag">Taller de arquitectura y paisaje</span></span></a>
-<div class="navlinks" id="navigation"><a href="#mirada">Mi mirada</a><a href="#tu-proyecto">Tu proyecto</a><a href="#obras">Obras</a><a href="#metodo">Cómo trabajo</a><a href="#contacto">Hablemos</a></div>
-<a class="nav-cta" href="#contacto">Hablemos</a>
-<button class="menu" aria-label="Abrir menú" aria-expanded="false" aria-controls="navigation"><span></span><span></span></button></nav></header>
-<main>
-<section class="hero" id="inicio" aria-label="Diorella Fortunati, arquitectura y paisaje">
-<div class="hero-art" aria-hidden="true"><img src="assets/images/generales/frente.jpg" alt="" decoding="async" class="hero-slide active" fetchpriority="high"></div>
-<div class="hero-monogram" aria-hidden="true">Dior<span class="mark-dot">.</span>f</div>
-<div class="hero-folio" aria-hidden="true">Mi mirada sobre el habitar</div>
-<div class="hero-content wrap"><span class="hero-kicker eyebrow">Taller de arquitectura y paisaje</span>
-<h1>Diorella <span>Fortunati</span></h1>
-<div class="hero-bottom"><p class="hero-copy">Espacios pensados para una forma ÚNICA de habitar, la tuya.</p><a class="hero-cta" href="#contacto">Hablemos de tu proyecto <span aria-hidden="true"><svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a></div>
-</div></section>
-<section class="intro" id="mirada"><div class="wrap intro-grid">
-<div class="portrait-column reveal"><span class="eyebrow">01 — Mi mirada</span><figure class="portrait-frame"><img src="assets/images/generales/profesional.jpg" alt="Diorella Fortunati frente a una exposición de arquitectura" decoding="async" width="290" height="336" loading="lazy"><figcaption><strong>Diorella Fortunati</strong><span>Arquitecta, docente universitaria, escritora.</span></figcaption></figure></div>
-<div class="intro-side reveal"><h2>Una manera de mirar.<br>Una forma de <em>habitar.</em></h2>
-<p>Creo en una arquitectura que nace de la escucha y la observación.<br>¿Cómo vivimos? ¿Cómo queremos vivir?</p>
-<p>Proyecto desde el encuentro entre persona y paisaje.</p>
-<p>La luz, la materia, la vegetación y lo preexistente no se suman al final: son parte indiscutida de las preguntas con las que empieza nuestro proceso.</p>
-<p>La docencia e investigación constante en talleres proyectuales y cursos propios construye un conocimiento dinámico que busca correr el límite de lo establecido a través de nuevas preguntas.</p>
-</div></div></section>
-<section class="listen" id="tu-proyecto"><div class="wrap">
-<div class="listen-heading reveal"><div><span class="eyebrow">02 — Tu proyecto</span><h2><small>El punto de partida:</small> la arquitectura como una respuesta a tu <em>escucha.</em></h2></div></div>
-<div class="principles reveal"><article class="principle"><span class="num">I.</span><h3>Escuchar</h3><p>Entender tu manera única de vivir y lo que ofrece el lugar.</p></article><article class="principle"><span class="num">II.</span><h3>Imaginar</h3><p>Explorar posibilidades con luz, materia y paisaje.</p></article><article class="principle"><span class="num">III.</span><h3>Proyectar</h3><p>Transformar esas ideas en espacios para habitar.</p></article></div>
-<p class="listen-tags">Luz · Materia · Paisaje · Vida</p></div></section>
-<section class="audiences" id="que-imaginas"><div class="wrap"><div class="audiences-heading reveal"><div><h2>¿Qué estás<br><em>imaginando?</em></h2></div><p>Dos puntos de partida,<br>la misma forma de trabajar.</p></div><div class="audience-grid"><article class="audience-card reveal">
-<img class="audience-photo" src="assets/images/casa-sur/lateral.jpg" alt="" loading="lazy" decoding="async">
-<div class="audience-top"><span class="audience-number">01 /</span><svg class="audience-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 9-8 9 8M5 10v11h14V10M10 21v-7h4v7M2 21h20"/></svg></div>
-<div class="audience-content"><h3>Mi casa.</h3><p class="audience-subtitle">Un espacio que se adapte a tu cotidianeidad.</p><p class="audience-description">Para vos y quienes comparten tu vida. Una casa nueva, una reforma o ese espacio que querés transformar.</p><a class="audience-action" href="#contacto" data-interest="Vivienda unifamiliar">Quiero pensar mi casa<span class="audience-arrow"><svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a><a class="audience-whatsapp" href="#contacto" data-wa="vivienda" data-interest="Vivienda unifamiliar" aria-label="Consultar por WhatsApp sobre vivienda familiar"><span>Consultar por WhatsApp</span></a></div></article><article class="audience-card reveal">
-<img class="audience-photo" src="assets/images/ocampo-edificio/lateral.jpg" alt="" loading="lazy" decoding="async">
-<div class="audience-top"><span class="audience-number">02 /</span><svg class="audience-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V3h10v18M14 9h6v12M2 21h20M8 7h2M8 11h2M8 15h2M17 13h0M17 17h0M8 21v-2h2v2"/></svg></div>
-<div class="audience-content"><h3>Mi inversión.</h3><p class="audience-subtitle">Una visión que toma forma.</p><p class="audience-description">Para quienes ven una posibilidad en un terreno o un desarrollo. Pensemos juntos su potencial y la arquitectura que puede darle valor.</p><a class="audience-action" href="#contacto" data-interest="Inversión / desarrollo inmobiliario">Quiero pensar mi inversión<span class="audience-arrow"><svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a><a class="audience-whatsapp" href="#contacto" data-wa="inversion" data-interest="Inversión / desarrollo inmobiliario" aria-label="Consultar por WhatsApp sobre inversión inmobiliaria"><span>Consultar por WhatsApp</span></a></div></article></div><a class="press-band reveal" href="https://www.lanacion.com.ar/revista-living/visitamos-a-tres-vecinos-en-un-edificio-en-ituzaingo-que-apuesta-a-elevar-la-calidad-de-vida-en-nid27102024/" target="_blank" rel="noopener"><span class="press-label">Testimonios · Revista Living</span><span class="press-text">Conocé nuestras casas en altura publicadas en <em>Revista Living</em></span><span class="press-arrow" aria-hidden="true"><svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a></div></section>
-<section class="works" id="obras"><div class="wrap"><div class="section-head reveal"><div><span class="eyebrow">03 — Obras construidas</span><h2>Obras construidas.</h2></div><p>Te muestro una selección de cuatro obras.</p></div><div class="gallery-tools"><p>Seleccioná una obra para conocerla.</p><div class="gallery-buttons"><button type="button" id="worksPrev" aria-label="Obras anteriores" aria-controls="worksTrack"><svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M20 12H4m7-7-7 7 7 7"/></svg></button><button type="button" id="worksNext" aria-label="Obras siguientes" aria-controls="worksTrack"><svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 12h16m-7-7 7 7-7 7"/></svg></button></div></div><div class="project-grid reveal" id="worksTrack" role="region" aria-label="Galería de obras construidas" tabindex="0"><article class="project" data-interest="Inversión / desarrollo inmobiliario" data-project="0"><button class="project-select" type="button" aria-label="Ver detalle de Edificio Ocampo" aria-haspopup="dialog"><span class="project-media"><img src="assets/images/ocampo-edificio/frente.jpg" alt="Edificio Ocampo — Estudio Morton" decoding="async" loading="lazy"><span class="project-open">Ver obra <svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></span><span class="project-info"><span class="project-meta">Vivienda multifamiliar · Habitar en conjunto</span><span class="project-name">Edificio Ocampo</span><span class="project-idea">¿Cómo pensar lo colectivo sin perder lo propio?</span></span></button></article>
-<article class="project" data-interest="Vivienda unifamiliar" data-project="1"><button class="project-select" type="button" aria-label="Ver detalle de Casa Sur" aria-haspopup="dialog"><span class="project-media"><img src="assets/images/casa-sur/pileta.jpg" alt="Casa Sur — Estudio Morton" decoding="async" loading="lazy"><span class="project-open">Ver obra <svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></span><span class="project-info"><span class="project-meta">Vivienda unifamiliar · La escala de lo cotidiano</span><span class="project-name">Casa Sur</span><span class="project-idea">¿Qué necesita una casa para acompañar tu manera de vivir?</span></span></button></article>
-<article class="project" data-interest="Vivienda unifamiliar" data-project="2"><button class="project-select" type="button" aria-label="Ver detalle de Casa Laguna" aria-haspopup="dialog"><span class="project-media"><img src="assets/images/casa-laguna/image3.jpg" alt="Casa Laguna — Estudio Morton" decoding="async" loading="lazy"><span class="project-open">Ver obra <svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></span><span class="project-info"><span class="project-meta">Vivienda frente a la laguna · Habitar el paisaje</span><span class="project-name">Casa Laguna</span><span class="project-idea">¿Y si la relación con el entorno fuera el punto de partida?</span></span></button></article>
-<article class="project" data-interest="Vivienda unifamiliar" data-project="3"><button class="project-select" type="button" aria-label="Ver detalle de Jacarandá" aria-haspopup="dialog"><span class="project-media"><img src="assets/images/jacaranda/cocina.jpg" alt="Jacarandá — Estudio Morton" decoding="async" loading="lazy"><span class="project-open">Ver obra <svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></span><span class="project-info"><!-- JACARANDÁ: textos provisorios, completar con datos de Diorella --><span class="project-meta">Departamento · Habitar el interior</span><span class="project-name">Jacarandá</span><span class="project-idea">¿Cómo hacer propio cada rincón de un departamento?</span></span></button></article></div><div class="works-footer"><a class="living-link" id="livingLink" href="PEGAR_AQUI_LINK_REVISTA_LIVING" target="_blank" rel="noopener">Conocé nuestras casas en altura publicadas en Revista Living <svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a><a class="text-link" href="https://www.estudiomorton.com/obras" target="_blank" rel="noopener">Explorar todas las obras <span aria-hidden="true"><svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></a></div></div></section>
-<section class="process" id="metodo"><div class="wrap process-grid"><div class="reveal"><span class="eyebrow">04 — Cómo trabajo</span><h2>Del deseo<br>a la materia.</h2><!-- FOTO: reemplazar el src por la foto definitiva --><figure class="process-photo"> <img src="assets/images/generales/proyecto.jpg" alt="Obra de Diorella Fortunati" loading="lazy" decoding="async"></figure><p class="process-lead">Un proceso compartido, con etapas claras. En la primera conversación definimos qué necesitás y el alcance del trabajo.</p><a class="text-link" href="#contacto">Empezar una conversación <svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a></div><div class="steps reveal">
-<article class="step"><span>01</span><div><h3>Presupuesto de honorarios fijo</h3><p>En la primera reunión te acercamos un presupuesto fijo, con opciones de pago, que no presenta alteraciones en el tiempo ni por metros cuadrados ni por elección de materiales.</p><p>No trabajamos por porcentajes: nuestro trabajo, esfuerzo y dedicación es el mismo en una obra onerosa o de bajo costo.</p></div></article>
-<article class="step"><span>02</span><div><h3>Contexto</h3><p>No hay proyecto sin contexto. Cualquiera sea tu encargo, evaluamos primero el presupuesto y el tiempo disponible, el asoleamiento, el paisaje, tus anhelos, tu vida cotidiana y también la extraordinaria. Así surge una propuesta que abarca la totalidad del terreno y la unicidad de cada uno.</p></div></article>
-<article class="step"><span>03</span><div><h3>Modelo</h3><p>Toda la información obtenida del contexto la volcamos en un modelo digital que podrás recorrer y objetar como si estuvieras dentro.</p></div></article>
-<article class="step"><span>04</span><div><h3>Proyecto</h3><p>Desarrollamos toda la documentación necesaria para la ejecución de la obra: desde planos municipales hasta planos de detalle.</p></div></article>
-<article class="step"><span>05</span><div><h3>Cronograma de obra</h3><p>Realizamos un cronograma de obra como parte de la dirección, para tomar decisiones asertivas antes del comienzo de la obra y disminuir los contratiempos y los costos una vez iniciada.</p></div></article>
-<article class="step"><span>06</span><div><h3>Dirección de obra</h3><p>Nos aseguramos de que tu anhelo quede como lo imaginamos juntos. Para eso hacemos visitas a obra, disponemos de equipos de trabajo de confianza y certificamos los avances.</p></div></article>
-</div></div></section>
-<section class="recognition-band" id="premios" aria-labelledby="recognitionTitle"><div class="wrap reveal"><div class="recognition-heading"><div><span class="eyebrow">05 — Una trayectoria avalada y reconocida internacionalmente</span><h2 id="recognitionTitle">Nuestras obras distinguidas.</h2></div><a class="recognition-source" href="https://www.estudiomorton.com/premios" target="_blank" rel="noopener">Ver en Estudio Morton</a></div></div>
-<div class="profile-counters wide-counters"><div class="recognition-stat"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 21h20M4 21V7l6-4v18M10 9h9v12M13 13h3M13 17h3M6.5 9.5h1M6.5 13.5h1M6.5 17.5h1"/></svg><strong class="profile-count" data-target="4500" aria-hidden="true">4500</strong><span>m² construidos</span><span class="sr-only">4500</span></div><div class="recognition-stat"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 0 1-10 0V4ZM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3M12 14v4M8 21h8M9 18h6v3H9z"/></svg><strong class="profile-count" data-target="24" aria-hidden="true">24</strong><span>Premios y nominaciones internacionales</span><span class="sr-only">24</span></div><div class="recognition-stat"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h7a1 1 0 0 1 1 1v15a2 2 0 0 0-2-2H4V4Zm16 0h-7a1 1 0 0 0-1 1v15a2 2 0 0 1 2-2h6V4Z"/></svg><strong class="profile-count" data-target="36" aria-hidden="true">36</strong><span>Publicaciones internacionales</span><span class="sr-only">36</span></div><div class="recognition-stat"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M3 10h18M8 3v4m8-4v4"/></svg><strong class="profile-count" data-target="15" data-prefix="+" aria-hidden="true">15</strong><span>Años de trayectoria</span><span class="sr-only">Más de 15</span></div><div class="recognition-stat"><svg class="stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8"/></svg><!-- CONFERENCIAS: reemplazar las dos X por el número real --><strong class="profile-count" data-target="X" aria-hidden="true">X</strong><span>Conferencias</span><span class="sr-only">Conferencias: dato a confirmar</span></div></div><div class="wrap"><details class="recognition-details"><summary>Explorar todos los reconocimientos<svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><div class="recognition-list full-recognition-list"><div class="recognition-category"><h4>Premios</h4><ul><li><strong>Gran Bienal Internacional de Arquitectura de Santa Cruz</strong><p>Primer premio · Edificio Ocampo · Categoría E: Producción Internacional, Obra Construida.</p></li><li><strong>ARQ FADEA 2024/2025</strong><p>Segundo premio.</p></li><li><strong>CAPBA Obra Construida 2021</strong><p>Segundo premio · Edificio Ocampo · Vivienda multifamiliar mayor a tres niveles.</p></li><li><strong>CAPBA Obra Construida 2018</strong><p>Primer premio · Casa Suburbana · Vivienda PROCREAR.</p></li><li><strong>Mejor proyecto de posgrado UTDT 2017</strong><p>Tercer premio · Rolling Pavilion · Diorella Fortunati, Andres Milos y Diego Valenzuela · Posgrado de Arquitectura y Tecnología.</p></li><li><strong>Premio Internacional CLA TIL 2014</strong><p>Segundo premio · Congreso Latinoamericano de Arquitectura, Taller Integral de Arquitectura · CCCAO, tesis de Diorella Fortunati.</p></li></ul></div><div class="recognition-category"><h4>Nominaciones</h4><ul><li><strong>Mies Crown Hall Americas Prize</strong><p>Cycle 5 · 2024–2025.</p></li><li><strong>Golden Trezzini Awards 2023 · Edificio Ocampo</strong><p>Best Implemented Project of Residential or Mixed-Use Estate.</p></li><li><strong>Golden Trezzini Awards 2023 · Casa Laguna</strong><p>Best Implemented Project of Private Residence.</p></li><li><strong>Golden Trezzini Awards 2023 · Jacarandá</strong><p>Best Implemented Apartment.</p></li><li><strong>Premio Soy Arquitecta 2021–2022</strong><p>Diorella Fortunati · Arquitecta Desarrolladora.</p></li></ul></div><div class="recognition-category"><h4>Menciones y distinciones</h4><ul><li><strong>Premio Soy Arquitecta 2023–2024</strong><p>Diorella Fortunati · Destacada en Arquitecta Proyectista.</p></li><li><strong>Premio Gualter Colombo · Bienal Nacional AcAU 2021–2022</strong><p>Distinción · Edificio Ocampo · Vivienda multifamiliar.</p></li><li><strong>CAPBA Obra Construida 2022</strong><p>Mención · Casa Sur · Vivienda unifamiliar.</p></li><li><strong>Mejor curso de grado UTDT 2021</strong><p>Primera mención · Simulaciones Sincrónicas · Dirección de Obras, Cátedra Robles.</p></li></ul></div><div class="recognition-category"><h4>Selecciones</h4><ul><li><strong>XVIII Bienal Internacional de Arquitectura de Buenos Aires 2022</strong><p>Edificio Ocampo · Vivienda multifamiliar.</p></li><li><strong>Premio In Award · Bienal Internacional de Arquitectura de Nueva York 2022</strong><p>Selección.</p></li><li><strong>5.º Encuentro de Mujeres Arquitectas 2023</strong><p>Selección nacional · Sistemas Materiales · Academia e Investigación.</p></li></ul></div><div class="recognition-category"><h4>Convocatorias</h4><ul><li><strong>Conversatorio Vivienda Exenta · CAPBA D2 2023</strong><p>Casa Laguna · Colección Vivienda, n.º 2: Viviendas Exentas · Bisman Ediciones.</p></li><li><strong>Consejo Superior de Arquitectura 2023</strong><p>Curso Expresión Material.</p></li></ul></div><div class="recognition-category"><h4>Becas</h4><ul><li><strong>Intercambio profesional IGE 2015</strong><p>Beca completa · Diorella Fortunati · Intercambio de Grupo de Estudio Alemania–Argentina, Rotary Internacional.</p></li><li><strong>Beca al mérito UM · 2007–2012</strong><p>Diorella Fortunati.</p></li></ul></div></div><p class="counter-note">Las entradas idénticas de Casa Laguna / Golden Trezzini y de In Award Nueva York se muestran una sola vez.</p></details></div></section>
-<section class="contact" id="contacto"><div class="wrap"><div class="contact-top"><div class="contact-heading reveal"><span class="eyebrow">06 — El próximo comienzo</span><h2>Hablemos de<br><em>tu proyecto.</em></h2><p>No hace falta tener todas las respuestas. Podemos empezar por una pregunta, un lugar o una idea.</p></div><div class="contact-card reveal"><p>Contame qué estás imaginando. Ya sea tu casa o un proyecto de inversión, el primer paso es escucharte.</p>
-<form class="contact-form" id="contactForm">
-<div class="field"><label for="nombre">Nombre *</label><input id="nombre" name="nombre" autocomplete="name" placeholder="Tu nombre" maxlength="120" required></div>
-<div class="field"><label for="email">Mail *</label><input id="email" name="email" type="email" autocomplete="email" placeholder="nombre@email.com" maxlength="200" required></div>
-<div class="field"><label for="telefono">Teléfono *</label><input id="telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" placeholder="11 2345 6789" maxlength="20" required aria-describedby="telefonoHint"><small class="field-hint" id="telefonoHint">Con código de área, sin 0 ni 15 (10 dígitos).</small></div>
-<div class="field"><label for="tipo">¿Qué estás imaginando? *</label><select id="tipo" name="tipo" required><option value="" selected disabled>Seleccioná una opción</option><option>Vivienda unifamiliar</option><option>Inversión / desarrollo inmobiliario</option></select></div>
-<div class="field"><label for="ubicacion">¿Dónde sería? *</label><input id="ubicacion" name="ubicacion" placeholder="Localidad o zona del proyecto" maxlength="200" required></div>
-<div class="field"><label for="presupuesto">¿Tenés definido un presupuesto a invertir? *</label><input id="presupuesto" name="presupuesto" placeholder="Sí, no, o un monto aproximado" maxlength="200" required></div>
-<div class="field wide"><label for="mensaje">Contame tu idea lo más detallada posible *</label><textarea id="mensaje" name="mensaje" placeholder="Qué necesitás, qué te gustaría transformar, si ya tenés terreno o un espacio…" maxlength="4000" required></textarea></div>
-<fieldset class="field wide choice-group"><legend>Elegí un modo de contacto *</legend>
-<label class="choice"><input type="radio" name="modo" value="Llamada telefónica" required><span>Llamada telefónica</span></label>
-<label class="choice"><input type="radio" name="modo" value="Reunión virtual" required><span>Reunión virtual</span></label></fieldset>
-<label class="choice choice-check field wide"><input type="checkbox" name="presencial" value="Sí"><span>Si lo que necesitás es un asesoramiento presencial en el lugar, tildá esta opción y te enviamos el valor del mismo.</span></label>
-<label class="choice choice-check field wide"><input type="checkbox" name="privacidad" value="Sí" required><span>Leí y acepto la <button type="button" class="privacy-open">Política de privacidad</button>. Los datos que cargo en este formulario se usan solo para responder mi consulta. *</span></label>
-<button class="submit" type="submit"><span id="submitLabel" style="font-size:inherit">Preparar consulta</span><span aria-hidden="true"><svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></button>
-<p class="form-note" id="contactNote">Vista previa: el contacto del estudio todavía no está conectado. Podés preparar y copiar tu consulta; no se enviará automáticamente.</p>
-</form></div></div><footer><div>© <span id="year">2026</span> Diorella Fortunati<br>Taller de arquitectura y paisaje</div><div class="footer-right"><button type="button" class="privacy-open">Política de privacidad</button> · <a href="https://www.estudiomorton.com/" target="_blank" rel="noopener">Estudio Morton <svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a> · <a href="#inicio">Volver al inicio <svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20V4m-7 7 7-7 7 7"/></svg></a></div><div class="footer-credit">Desarrollado por <a href="https://www.studionovaire.com/" target="_blank" rel="noopener">Studio Novaire</a></div></footer></div></section>
-</main>
-<a class="whatsapp whatsapp-floating" href="#contacto" data-wa="general" aria-label="Consultar por WhatsApp"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M27 15.5a11.5 11.5 0 0 1-17.2 10L4 27l1.5-5.6A11.5 11.5 0 1 1 27 15.5Z"/><path d="m11.3 9.3 2 3-1.4 1.8c1.1 2.2 2.9 4 5.1 5.1l1.8-1.4 3 2c-.3 2-1.7 2.9-3.5 2.4-4.8-1.3-8.6-5.1-9.9-9.9-.5-1.8.4-3.2 2.9-3Z"/></svg></a>
-<dialog id="projectDialog" aria-labelledby="projectTitle"><button class="dialog-close" type="button">Cerrar <svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button><div class="project-detail-layout"><div class="project-detail-image"><img id="projectImage" alt=""></div><div class="dialog-caption"><span class="eyebrow">Estudio Morton · Obra seleccionada</span><h2 id="projectTitle"></h2><p id="projectFacts"></p><p id="projectQuestion"></p><div class="detail-block"><h3>Qué se realizó</h3><p id="projectScope"></p></div><div class="detail-block"><h3>Qué se destaca</h3><ul id="projectHighlights"></ul></div><p id="projectCredits"></p><a id="projectSource" class="detail-source" target="_blank" rel="noopener">Ver ficha completa en Estudio Morton</a><a class="text-link" id="projectInquiry" href="#contacto">Quiero conversar sobre mi proyecto<svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a></div></div></dialog>
-<dialog id="privacyDialog" aria-labelledby="privacyTitle"><button class="dialog-close" type="button">Cerrar <svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button><div class="inquiry-content privacy-content"><span class="eyebrow">Tus datos</span><h2 id="privacyTitle">Política de privacidad.</h2>
-<h3>Quién es responsable</h3><p>Diorella Fortunati, Taller de arquitectura y paisaje, es responsable de los datos personales que se cargan en este sitio.</p>
-<h3>Qué datos tomamos</h3><p>Solo los que vos completás en el formulario de contacto: nombre, mail, teléfono, tipo de proyecto, ubicación, presupuesto estimado, la descripción de tu idea y el modo de contacto que elegís. El sitio no usa cookies publicitarias ni de seguimiento.</p>
-<h3>Para qué los usamos</h3><p>Únicamente para responder tu consulta, contactarte por el medio que elegiste y, si lo pedís, enviarte el valor de un asesoramiento presencial. No enviamos publicidad ni compartimos, vendemos o cedemos tus datos a terceros.</p>
-<h3>Cómo se envían y guardan</h3><p>El formulario se envía por medio del servicio Web3Forms, que entrega tu consulta en nuestra casilla de mail. Si elegís continuar por WhatsApp, la conversación queda sujeta a las condiciones de esa aplicación. Conservamos tu consulta el tiempo necesario para responderla y dar seguimiento a tu proyecto.</p>
-<h3>Tus derechos</h3><p>Podés pedir en cualquier momento acceder a tus datos, corregirlos o eliminarlos, escribiéndonos a <a href="mailto:tallerdior@gmail.com">tallerdior@gmail.com</a> o por WhatsApp al +54 9 11 5123-4303. La Agencia de Acceso a la Información Pública, órgano de control de la Ley 25.326 de Protección de Datos Personales, atiende las denuncias y reclamos vinculados a esta materia.</p>
-<p class="privacy-date">Última actualización: octubre de 2026.</p></div></dialog>
-<dialog id="inquiryDialog" aria-labelledby="inquiryTitle"><button class="dialog-close" type="button">Cerrar <svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button><div class="inquiry-content"><span class="eyebrow">Tu proyecto</span><h2 id="inquiryTitle">El primer paso.</h2><p id="inquiryExplanation">Tu consulta está preparada. Todavía no se envió ningún mensaje.</p><label for="inquiryText">Resumen de tu consulta</label><textarea id="inquiryText" readonly></textarea><div class="inquiry-actions"><a class="submit" id="sendInquiry" hidden target="_blank" rel="noopener">Continuar por WhatsApp <svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a><button id="copyInquiry" class="submit submit-ghost" type="button">Copiar consulta <span aria-hidden="true"><svg class="line-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></span></button></div><p id="copyStatus" role="status"></p></div></dialog>
 
-<script src="js/script.js" defer></script>
-</body>
-</html>
+// Cada sección entra como una unidad; izquierda, derecha y así sucesivamente.
+const revealSections=[...document.querySelectorAll('main > section')];
+revealSections.forEach((section,index)=>{
+ section.classList.add('section-enter');
+ section.dataset.entrySide=index%2===0?'left':'right';
+});
+const countEls=[...document.querySelectorAll('.profile-count')];
+let sectionObserver, counterObserver;
+const countFrames=new Map();
+function finishCounts(){
+ countFrames.forEach(id=>cancelAnimationFrame(id));countFrames.clear();
+ countEls.forEach(el=>el.textContent=el.dataset.target);
+}
+function animateCount(el){
+ const end=Number(el.dataset.target),start=performance.now();
+ if(!Number.isFinite(end)){el.textContent=el.dataset.target;return;}
+ function frame(now){
+  const progress=Math.min((now-start)/1100,1);
+  el.textContent=String(Math.round(end*(1-Math.pow(1-progress,3))));
+  if(progress<1)countFrames.set(el,requestAnimationFrame(frame));else countFrames.delete(el);
+ }
+ el.textContent='0';countFrames.set(el,requestAnimationFrame(frame));
+}
+
+function revealAllSections(){
+ document.documentElement.classList.remove('section-motion');
+ sectionObserver?.disconnect();counterObserver?.disconnect();
+ revealSections.forEach(section=>section.classList.add('is-visible'));
+ finishCounts();
+}
+if('IntersectionObserver' in window && !reduced.matches){
+ sectionObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+  if(entry.isIntersecting){
+   entry.target.classList.add('is-visible');
+   sectionObserver.unobserve(entry.target);
+  }
+ }),{threshold:0,rootMargin:'0px 0px -35px 0px'});
+ document.documentElement.classList.add('section-motion');
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{
+  revealSections.forEach(section=>sectionObserver.observe(section));
+ }));
+ counterObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+  if(entry.isIntersecting){animateCount(entry.target);counterObserver.unobserve(entry.target);}
+ }),{threshold:.6});
+ countEls.forEach(el=>counterObserver.observe(el));
+}
+reduced.addEventListener('change',()=>{if(reduced.matches)revealAllSections();});
+// Arma la portada con las fotos de HERO_FOTOS (lista al principio de este archivo).
+const heroArt=$('.hero-art');
+if(heroArt&&HERO_FOTOS.length)heroArt.replaceChildren(...HERO_FOTOS.map((src,i)=>{
+ const img=new Image();img.alt='';img.decoding='async';img.className='hero-slide'+(i===0?' active':'');
+ if(i===0)img.fetchPriority='high';img.src=src;return img;
+}));
+const slides=[...document.querySelectorAll('.hero-slide')], dots=[...document.querySelectorAll('.slide-dot')];
+let currentSlide=0, paused=reduced.matches, slideTimer;
+function showSlide(n){currentSlide=n;slides.forEach((img,i)=>img.classList.toggle('active',i===n));dots.forEach((dot,i)=>dot.setAttribute('aria-pressed',String(i===n)));}
+function syncSlides(){clearInterval(slideTimer);if(!paused&&!document.hidden)slideTimer=setInterval(()=>showSlide((currentSlide+1)%slides.length),3500);}
+dots.forEach(dot=>dot.addEventListener('click',()=>{showSlide(Number(dot.dataset.slide));syncSlides();}));
+
+document.addEventListener('visibilitychange',syncSlides);
+reduced.addEventListener('change',()=>{paused=reduced.matches;syncSlides();});
+syncSlides();
+
+
+const projectDialog=$('#projectDialog');
+const PROJECTS=[{"title": "Edificio Ocampo", "facts": "Ituzaingó · 2.000 m² · Construcción 2018–2021", "question": "La independencia de una casa, en altura.", "scope": "Proyecto y dirección de un edificio con 13 departamentos, dos locales gastronómicos, terrazas y cocheras.", "highlights": ["Viviendas de distintas tipologías, adaptables a diversas formas de convivencia.", "Expansiones generosas, vegetación y terrazas que acercan el exterior a cada unidad.", "Vacíos entre viviendas y circulaciones semicubiertas para favorecer privacidad, iluminación y ventilación."], "credits": "Proyecto y dirección: Diorella Fortunati. Fotografía de obra terminada: Federico Kulekdjian.", "url": "https://www.estudiomorton.com/edificioocampo"}, {"title": "Casa Sur", "facts": "Horizontes al Sur, Canning · 135 m² · Construcción 2022", "question": "Hacer más con los recursos disponibles.", "scope": "Proyecto y dirección de una vivienda familiar, con especial atención al presupuesto, la orientación y la flexibilidad de sus espacios.", "highlights": ["Dos bloques articulados por un núcleo de servicios que organiza el acceso.", "Áreas flexibles que admiten divisiones posteriores y cambios en la vida familiar.", "Cubiertas premoldeadas y espacios semicubiertos como parte de la estrategia constructiva."], "credits": "Proyecto y dirección: Diorella Fortunati. Fotografía: Matias Godec.", "url": "https://www.estudiomorton.com/casasur"}, {"title": "Casa Laguna", "facts": "Horizontes al Sur, Canning · 170 m² · Construcción 2022", "question": "Una casa que construye su propio paisaje.", "scope": "Proyecto y dirección de una vivienda frente a la laguna, organizada alrededor de la privacidad y de un espacio común flexible conectado con el exterior.", "highlights": ["Patio de acceso y espacios perimetrales que resguardan la intimidad.", "Patio de agua que separa el dormitorio principal del resto de la vivienda.", "Continuidad visual entre los espacios sociales, el jardín, la pileta y la laguna."], "credits": "Proyecto: Diorella Fortunati y Nuria Jover. Dirección: Diorella Fortunati.", "url": "https://www.estudiomorton.com/casalaguna"}, {"title": "Jacarandá", "facts": "Departamento", "question": "Un departamento pensado desde el interior.", "scope": "TEXTO PROVISORIO: completar con la descripción de la obra.", "highlights": ["Nominado a los Golden Trezzini Awards 2023 · Best Implemented Apartment."], "credits": "", "url": "https://www.estudiomorton.com/obras"}];
+let currentInterest='';
+document.querySelectorAll('.project').forEach(card=>{
+ card.querySelector('.project-select').addEventListener('click',()=>{
+  const img=card.querySelector('img'), project=PROJECTS[Number(card.dataset.project)];
+  $('#projectImage').src=img.src;$('#projectImage').alt=img.alt;
+  $('#projectTitle').textContent=project.title;
+  $('#projectFacts').textContent=project.facts;
+  $('#projectQuestion').textContent=project.question;
+  $('#projectScope').textContent=project.scope;
+  $('#projectHighlights').replaceChildren(...project.highlights.map(text=>{const li=document.createElement('li');li.textContent=text;return li;}));
+  $('#projectCredits').textContent=project.credits;
+  $('#projectSource').href=project.url;
+  currentInterest=card.dataset.interest;
+  projectDialog.showModal();projectDialog.scrollTop=0;
+ });
+});
+// Obras: cada tarjeta anima su foto y sus textos cuando entra en pantalla.
+if('IntersectionObserver' in window && !reduced.matches){
+ const grid=$('#worksTrack');grid.classList.add('works-anim');
+ const cardObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+  if(entry.isIntersecting){entry.target.classList.add('in-view');cardObserver.unobserve(entry.target);}
+ }),{threshold:.35});
+ grid.querySelectorAll('.project').forEach(card=>cardObserver.observe(card));
+}
+const worksTrack=$('#worksTrack'), worksPrev=$('#worksPrev'), worksNext=$('#worksNext');
+function syncWorksControls(){
+ worksPrev.disabled=worksTrack.scrollLeft<2;
+ worksNext.disabled=worksTrack.scrollLeft>=worksTrack.scrollWidth-worksTrack.clientWidth-2;
+}
+function moveWorks(direction){
+ const card=worksTrack.querySelector('.project'),gap=parseFloat(getComputedStyle(worksTrack).columnGap)||0;
+ worksTrack.scrollBy({left:direction*(card.getBoundingClientRect().width+gap),behavior:reduced.matches?'instant':'smooth'});
+}
+worksPrev.addEventListener('click',()=>moveWorks(-1));
+worksNext.addEventListener('click',()=>moveWorks(1));
+worksTrack.addEventListener('scroll',syncWorksControls,{passive:true});
+worksTrack.addEventListener('keydown',e=>{
+ if(e.target!==worksTrack)return;
+ if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();moveWorks(e.key==='ArrowRight'?1:-1);}
+});
+addEventListener('resize',syncWorksControls);syncWorksControls();
+projectDialog.addEventListener('close',()=>{document.body.classList.remove('project-modal-open');});
+new MutationObserver(()=>document.body.classList.toggle('project-modal-open',projectDialog.open)).observe(projectDialog,{attributes:true,attributeFilter:['open']});
+document.querySelectorAll('[data-interest][href]').forEach(link=>link.addEventListener('click',()=>{$('#tipo').value=link.dataset.interest;}));
+$('#projectInquiry').addEventListener('click',()=>{$('#tipo').value=currentInterest;projectDialog.close();});
+document.querySelectorAll('.privacy-open').forEach(b=>b.addEventListener('click',()=>{$('#privacyDialog').showModal();$('#privacyDialog').scrollTop=0;}));
+document.querySelectorAll('dialog').forEach(dialog=>{
+ dialog.querySelector('.dialog-close').addEventListener('click',()=>dialog.close());
+ dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
+});
+const whatsapp=CONTACTO.whatsapp.replace(/\D/g,''), email=CONTACTO.email.trim();
+
+// Completar CONTACTO.whatsapp arriba para activar los tres enlaces.
+// Ejemplo de formato argentino: 549 + código de área + número, sin +, espacios ni 15.
+const WHATSAPP_MESSAGES = {
+ vivienda: 'Hola, Diorella. Estoy interesado/a en un proyecto de vivienda familiar. Me gustaría recibir más información.',
+ inversion: 'Hola, Diorella. Estoy interesado/a en un proyecto de inversión inmobiliaria. Me gustaría recibir más información.',
+ general: 'Hola, Diorella. Me gustaría consultar sobre un proyecto de arquitectura.'
+};
+document.querySelectorAll('[data-wa]').forEach(link=>{
+ const message=WHATSAPP_MESSAGES[link.dataset.wa];
+ if(whatsapp){
+  link.href='https://wa.me/'+whatsapp+'?text='+encodeURIComponent(message);
+  link.target='_blank';link.rel='noopener noreferrer';
+ }else{
+  link.addEventListener('click',event=>{
+   event.preventDefault();
+   $('#inquiryText').value=message;
+   $('#inquiryExplanation').textContent='El mensaje está listo. Falta configurar el número de WhatsApp del estudio para abrir la conversación. Por ahora podés copiarlo.';
+   $('#sendInquiry').hidden=true;
+   $('#copyStatus').textContent='';
+   $('#inquiryDialog').showModal();
+  });
+ }
+});
+
+// Botón de Revista Living: se muestra sólo cuando se pega el link real en el HTML.
+const livingLink=$('#livingLink');
+if(livingLink&&livingLink.getAttribute('href').startsWith('PEGAR'))livingLink.hidden=true;
+// Teléfono obligatorio con cantidad de dígitos exacta (Argentina: 10, sin 0 ni 15).
+const telInput=$('#telefono');
+function telDigits(){let d=telInput.value.replace(/\D/g,'');if(d.startsWith('54'))d=d.slice(2);if(d.length===11&&d.startsWith('9'))d=d.slice(1);return d;}
+function checkTel(){const d=telDigits();telInput.setCustomValidity(d.length===10&&!d.startsWith('0')?'':'Revisá el teléfono: código de área + número, sin 0 ni 15. Deben ser 10 dígitos (ej. 11 2345 6789).');}
+telInput.addEventListener('input',checkTel);checkTel();
+const connected=!!(whatsapp||email);
+$('#submitLabel').textContent='Enviar consulta';$('#contactNote').textContent='Tu consulta se envía directamente por mail.'+(connected?whatsapp?' También podés continuar por WhatsApp.':' También podés continuar por correo.':'');
+$('#contactForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const form=e.currentTarget;
+ const f=new FormData(form);
+ const text=['Hola, Diorella. Me gustaría conversar sobre mi proyecto.','',
+ 'Nombre: '+f.get('nombre'),'Email: '+f.get('email'),'Teléfono: '+telDigits(),
+ 'Qué estoy imaginando: '+f.get('tipo'),'Dónde sería: '+f.get('ubicacion'),'Presupuesto a invertir: '+f.get('presupuesto'),
+ 'Modo de contacto: '+f.get('modo'),'Asesoramiento presencial en el lugar: '+(f.get('presencial')?'Sí, enviar valor':'No'),'',f.get('mensaje')].join('\n');
+ $('#inquiryText').value=text;$('#copyStatus').textContent='';
+ const send=$('#sendInquiry');send.hidden=!connected;
+ if(connected){
+  send.href=whatsapp?'https://wa.me/'+whatsapp+'?text='+encodeURIComponent(text):'mailto:'+email+'?subject='+encodeURIComponent('Consulta de arquitectura · '+f.get('tipo'))+'&body='+encodeURIComponent(text);
+  send.textContent=whatsapp?'Continuar en WhatsApp':'Abrir mi correo';
+ }
+ const submitBtn=form.querySelector('button[type=submit]');
+ if(submitBtn)submitBtn.disabled=true;
+ $('#inquiryExplanation').textContent='Enviando tu consulta…';
+ $('#inquiryDialog').showModal();
+ try{
+  const res=await fetch('https://api.web3forms.com/submit',{
+   method:'POST',
+   headers:{'Content-Type':'application/json',Accept:'application/json'},
+   body:JSON.stringify({
+    access_key:WEB3FORMS_ACCESS_KEY,
+    subject:'Consulta de arquitectura · '+f.get('tipo'),
+    from_name:f.get('nombre'),
+    email:f.get('email'),
+    Nombre:f.get('nombre'),
+    Teléfono:telDigits(),
+    'Qué está imaginando':f.get('tipo'),
+    'Dónde sería':f.get('ubicacion'),
+    'Presupuesto a invertir':f.get('presupuesto'),
+    'Modo de contacto':f.get('modo'),
+    'Asesoramiento presencial':f.get('presencial')?'Sí, enviar valor':'No',
+    Idea:f.get('mensaje'),
+    'Aceptó la política de privacidad':'Sí'
+   })
+  });
+  const data=await res.json();
+  if(!data.success)throw new Error(data.message||'Error al enviar');
+  $('#inquiryExplanation').textContent='Tu consulta ya fue enviada. Te van a responder a la brevedad.'+(connected?' También podés continuar '+(whatsapp?'por WhatsApp.':'por correo.'):'');
+  form.reset();checkTel();
+ }catch(err){
+  $('#inquiryExplanation').textContent='No pudimos enviar tu consulta automáticamente. Podés copiarla'+(connected?' o continuar '+(whatsapp?'por WhatsApp.':'por correo.'):'.');
+ }finally{
+  if(submitBtn)submitBtn.disabled=false;
+ }
+});
+$('#copyInquiry').addEventListener('click',async()=>{
+ try{await navigator.clipboard.writeText($('#inquiryText').value);$('#copyStatus').textContent='Consulta copiada.';}
+ catch{$('#inquiryText').focus();$('#inquiryText').select();$('#copyStatus').textContent='El texto está seleccionado. Copialo con Ctrl+C o la opción Copiar de tu dispositivo.';}
+});
+
+// ===== "Contame tu idea": mínimo y máximo de caracteres, con contador =====
+(() => {
+ const MIN=30, MAX=1000;
+ const idea=$('#mensaje');
+ idea.maxLength=MAX;
+ const contador=document.createElement('small');
+ contador.className='field-hint';
+ idea.after(contador);
+ function revisar(){
+  const n=idea.value.trim().length;
+  idea.setCustomValidity(n>=MIN?'':'Contanos un poco más: mínimo '+MIN+' caracteres.');
+  contador.textContent=n<MIN?'Mínimo '+MIN+' caracteres. Llevás '+n+'.':n+' de '+MAX+' caracteres.';
+ }
+ idea.addEventListener('input',revisar);
+ $('#contactForm').addEventListener('reset',()=>setTimeout(revisar));
+ revisar();
+})();
+
+
+// ===== GALERÍA EN LA FICHA DE CADA OBRA =====
+// Una lista por obra, en el mismo orden que las tarjetas. La primera foto es la que abre la ficha.
+// Para agregar o quitar fotos, editá estas listas (el sitio no puede leer las carpetas solo).
+const GALERIAS = [
+ ['ocampo-edificio/frente.jpg','ocampo-edificio/esquina.jpg','ocampo-edificio/lateral.jpg','ocampo-edificio/balcon.jpg','ocampo-edificio/abajo.jpg','ocampo-edificio/vista-arriba.jpg','ocampo-edificio/vista-galeria.jpg'],
+ ['casa-sur/pileta.jpg','casa-sur/lateral.jpg','casa-sur/noche.jpg','casa-sur/ventanal.jpg'],
+ ['casa-laguna/image3.jpg','casa-laguna/image1.jpg','casa-laguna/image2.jpg','casa-laguna/image4.jpeg','casa-laguna/image5.jpeg','casa-laguna/image6.jpg'],
+ ['jacaranda/cocina.jpg','jacaranda/sillon.jpg','jacaranda/isla.jpg','jacaranda/balcon.jpg','jacaranda/vista-cocina.jpg'],
+];
+(() => {
+ const box=$('.project-detail-image'), img=$('#projectImage');
+ const flecha=(cls,label,d)=>{const b=document.createElement('button');b.type='button';b.className='gal-btn '+cls;b.setAttribute('aria-label',label);b.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="'+d+'"/></svg>';return b;};
+ const prev=flecha('gal-prev','Foto anterior','M20 12H4m7-7-7 7 7 7'), next=flecha('gal-next','Foto siguiente','M4 12h16m-7-7 7 7-7 7');
+ const cuenta=document.createElement('span');cuenta.className='gal-count';
+ box.append(prev,next,cuenta);
+ let fotos=[], i=0, titulo='';
+ function mostrar(n){
+  i=(n+fotos.length)%fotos.length;
+  img.src='assets/images/'+fotos[i];img.alt=titulo+' — foto '+(i+1)+' de '+fotos.length;
+  cuenta.textContent=(i+1)+' / '+fotos.length;
+  if(fotos.length>1)new Image().src='assets/images/'+fotos[(i+1)%fotos.length];
+ }
+ document.querySelectorAll('.project').forEach(card=>card.querySelector('.project-select').addEventListener('click',()=>{
+  const n=Number(card.dataset.project);
+  fotos=GALERIAS[n]||[];titulo=PROJECTS[n].title;
+  const varias=fotos.length>1;prev.hidden=next.hidden=cuenta.hidden=!varias;
+  if(fotos.length)mostrar(0);
+ }));
+ prev.addEventListener('click',()=>mostrar(i-1));
+ next.addEventListener('click',()=>mostrar(i+1));
+ projectDialog.addEventListener('keydown',e=>{
+  if(fotos.length<2)return;
+  if(e.key==='ArrowRight')mostrar(i+1);
+  if(e.key==='ArrowLeft')mostrar(i-1);
+ });
+ // Deslizar con el dedo en el celular.
+ let x0=null;
+ box.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;},{passive:true});
+ box.addEventListener('touchend',e=>{
+  if(x0===null||fotos.length<2)return;
+  const dx=e.changedTouches[0].clientX-x0;x0=null;
+  if(Math.abs(dx)>45)mostrar(i+(dx<0?1:-1));
+ });
+})();
+
+
+
+// ===== Ficha de Jacarandá =====
+PROJECTS[3] = {
+ title: 'Jacarandá',
+ facts: 'Ituzaingó, Buenos Aires · Departamento · Diseño interior',
+  question: 'La cocina se extiende de pared a pared prácticamente sin ser percibida por la vista.',
+ scope: 'Diseño interior de un departamento pequeño en un primer piso, definido por su estructura de hormigón a la vista y grandes superficies vidriadas hacia las dos calles de la esquina.',
+ highlights: [
+  'Una isla cuadrada en el centro del área social reúne cocinar y comer en un mismo mueble de 90 cm de alto, frente a la mesada de hormigón alisado preexistente.',
+  'La isla contiene horno, guardado y estantes; su tapa de cuarzo se extiende sobre dos lados como mesa para cuatro banquetas.',
+  'Tomas eléctricas ocultas permiten usarla durante el día como espacio de trabajo.',
+  'Un estante flotante de chapa negra sostiene libros y cafetera: la cocina va de pared a pared casi sin percibirse.',
+  'Nominado a los Golden Trezzini Awards 2023 · Best Implemented Apartment.'
+ ],
+ credits: '',
+ url: 'https://www.estudiomorton.com/obras'
+};
+// ===== TELÉFONO: solo números, 10 dígitos, formato fijo "11 2345 6789" =====
+(() => {
+ const tel=$('#telefono'), hint=$('#telefonoHint');
+ tel.maxLength=20; tel.inputMode='numeric';
+ tel.addEventListener('input',()=>{
+  let d=tel.value.replace(/\D/g,'');
+  if(d.length>10&&d.startsWith('549'))d=d.slice(3);
+  else if(d.length>10&&d.startsWith('54'))d=d.slice(2);
+  if(d.length>10&&d.startsWith('0'))d=d.slice(1);
+  d=d.slice(0,10);
+  tel.value=[d.slice(0,2),d.slice(2,6),d.slice(6,10)].filter(Boolean).join(' ');
+  checkTel();
+  hint.textContent=d.length===10?'Número completo: 10 dígitos.':'Con código de área, sin 0 ni 15. Llevás '+d.length+' de 10 dígitos.';
+ });
+ // Nombre: hasta 60 caracteres, solo letras.
+ const nombre=$('#nombre'); nombre.maxLength=60;
+ nombre.addEventListener('input',()=>{
+  nombre.value=nombre.value.replace(/[^\p{L} '’.-]/gu,'').replace(/\s{2,}/g,' ');
+  nombre.setCustomValidity(nombre.value.trim().length>=3?'':'Escribí tu nombre completo.');
+ });
+})();
