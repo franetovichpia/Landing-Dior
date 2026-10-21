@@ -10,6 +10,7 @@ const HERO_FOTOS = [
  'assets/images/ocampo-edificio/frente.jpg',
  'assets/images/ocampo-edificio/esquina.jpg',
  'assets/images/casa-laguna/image3.jpg',
+ 'assets/images/generales/hormigon.jpg',
 ];
 const CONTACTO = { whatsapp: '5491151234303', email: '' };
 // Access Key de Web3Forms (web3forms.com): las consultas del formulario llegan
