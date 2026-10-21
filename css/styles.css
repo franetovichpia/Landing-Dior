@@ -662,3 +662,13 @@ footer{font-size:.82rem}
 .hero-monogram{padding:.25em .75em .45em .35em;right:calc(11% - .5em);top:calc(150px - .25em)}
 @media(max-width:800px){.hero-monogram{right:calc(6% - .5em);top:calc(120px - .25em)}}
 @media(max-width:800px){.hero-monogram{font-size:clamp(70px,22vw,110px);right:2%;left:auto}}
+
+/* Logo "Dior.F": todo seguido, con la F inclinada en cursiva */
+.mark .mark-dot,.hero-monogram .mark-dot{margin:0 .02em 0 0}
+.mark-f{display:inline-block;transform:skewX(-14deg);transform-origin:bottom left;margin-left:-.04em}
+.mark{padding-right:26px}
+@media(max-width:540px){.mark{padding-right:18px}}
+@media(min-width:801px){.hero-monogram{right:calc(15% - .5em)}}
+.mark-f{transform:none;margin-left:0}
+.mark{padding-right:16px}
+@media(max-width:540px){.mark{padding-right:12px}}
